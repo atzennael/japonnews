@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -96,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserExists(email: String, password: String) {
-        db.collection("users").document(email).get()
+        db.collection("usuarios").document(email).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     loginUser(email, password)
@@ -138,6 +139,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signInWithMicrosoft() {
         val provider = OAuthProvider.newBuilder("microsoft.com")
+        provider.addCustomParameter("prompt", "select_account")
 
         val pendingResultTask = FirebaseAuth.getInstance().pendingAuthResult
         if (pendingResultTask != null) {
@@ -149,6 +151,9 @@ class LoginActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("AuthError", "Error: ${it.message}")
+                    Log.e("AuthError", "Error: $it")
+
                 }
         } else {
             // Si no hay sesión pendiente, iniciar sesión manualmente
@@ -160,6 +165,8 @@ class LoginActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("AuthError", "Error: ${it.message}")
+                    Log.e("AuthError", "Error: $it")
                 }
         }
     }
