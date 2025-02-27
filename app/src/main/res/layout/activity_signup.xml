@@ -10,7 +10,8 @@
     android:background="@color/white">
 
     <Button
-        android:id="@+id/login2"
+        android:id="@+id/cargarImg"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -18,7 +19,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="135dp"
         android:backgroundTint="@color/purple_app"
-        android:enabled="false"
+        android:enabled="true"
         android:text="Cargar Imagen"
         android:textColor="@color/yellow_app"
         android:textStyle="bold"
@@ -72,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.251"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login2" />
+        app:layout_constraintTop_toBottomOf="@+id/cargarImg" />
 
     <TextView
         android:id="@+id/textView6"
