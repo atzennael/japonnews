@@ -12,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="104dp"
         android:text="Coloca aquí el título de tu publicación"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,48 +26,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="90dp"
         android:text="Escribe aquí el detalle de tu publicación"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTitulo" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="314dp"
         android:layout_height="42dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="49dp"
         android:text="¡Coloca aquí una imagen! Así tu publicación llamará más postulantes"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDetalle" />
 
     <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/editTextTitulo"
+        android:layout_width="338dp"
+        android:layout_height="40dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="182dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="31dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="176dp"
+        android:id="@+id/editTextDetalle"
+        android:layout_width="336dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="16sp"
@@ -75,30 +79,75 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonCargar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="134dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="31dp"
         android:layout_marginEnd="135dp"
         android:backgroundTint="@color/yellow_app"
         android:text="Cargar Imagen"
-        android:textColor="@color/black"
+        android:textColor="@color/purple_app"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="69dp"
-        android:layout_marginBottom="94dp"
+        android:id="@+id/buttonCrear"
+        android:layout_width="291dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="60dp"
         android:backgroundTint="@color/purple_app"
         android:text="Crear Oportunidad"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/yellow_app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCargar" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="419dp"
+        android:layout_height="39dp"
+        android:background="@color/purple_app"
+        android:text="Crea tu clasificado"
+        android:textAlignment="center"
+        android:textColor="@color/yellow_app"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="419dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/purple_app"
+        android:textAlignment="center"
+        android:textColor="@color/yellow_app"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView19"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="87dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="162dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:srcCompat="@drawable/clasif_ic" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

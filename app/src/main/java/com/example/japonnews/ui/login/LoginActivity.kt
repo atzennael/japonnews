@@ -1,6 +1,5 @@
 package com.example.japonnews.ui.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -8,7 +7,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,6 +20,7 @@ import com.example.japonnews.databinding.ActivityLoginBinding
 import com.example.japonnews.home1
 import com.example.japonnews.signup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -38,55 +37,25 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        val currentUser: FirebaseUser? = auth.currentUser
+
+        if (currentUser != null) {
+            startActivity(Intent(this, home1::class.java))
+            finish()
+            return
+        }
         val outlook = findViewById <ImageView>(R.id.outlook)
         outlook.setOnClickListener {
             signInWithMicrosoft()
         }
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-
-        val username = binding.username
-        val password = binding.password
         val login = binding.login
-        val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
-
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
-
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(username.text.toString(), password.text.toString())
-        }
-
-        password.apply {
-            afterTextChanged {
-                loginViewModel.loginDataChanged(username.text.toString(), password.text.toString())
-            }
-
-            setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    checkUserExists(username.text.toString(), password.text.toString())
-                }
-                false
-            }
-
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                checkUserExists(username.text.toString(), password.text.toString())
-            }
+        login.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
+            checkUserExists(binding.username.text.toString(), binding.password.text.toString())
         }
 
         val textView = findViewById<TextView>(R.id.textView2)
@@ -125,17 +94,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = "Bienvenido, "
-        val displayName = model.displayName
-        Toast.makeText(applicationContext, "$welcome $displayName", Toast.LENGTH_LONG).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-
 
     private fun signInWithMicrosoft() {
         val provider = OAuthProvider.newBuilder("microsoft.com")

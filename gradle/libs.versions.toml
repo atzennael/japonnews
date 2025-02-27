@@ -21,6 +21,7 @@ androidxViewPager2 = "1.0.0"
 volley = "1.2.1"
 firebaseAuth = "23.2.0"
 firebaseFirestoreKtx = "25.1.2"
+firebaseStorage = "21.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +51,7 @@ androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref =
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 
 
 [plugins]
