@@ -8,46 +8,67 @@
     tools:context=".clasificado">
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textViewTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="129dp"
         android:text="{Aquí va el título}"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="66dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="280dp"
         android:layout_height="189dp"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="138dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="66dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/textViewDetalle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="175dp"
+        android:layout_marginBottom="225dp"
         android:text="Detalle"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="479dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="30dp"
         android:text="Guardar"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="372dp" />
+        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="66dp"
         android:text="Postularme Ya"
-        tools:layout_editor_absoluteX="204dp"
-        tools:layout_editor_absoluteY="372dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

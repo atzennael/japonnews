@@ -55,12 +55,6 @@ public class signup extends AppCompatActivity {
         imgProfile = findViewById(R.id.imageView2);
         btnCargarImg = findViewById(R.id.cargarImg);
 
-        if (btnCargarImg == null) {
-            Log.e("SignupActivity", "ERROR: btnCargarImg es NULL. Revisa el ID en XML.");
-        } else {
-            Log.d("SignupActivity", "btnCargarImg encontrado correctamente.");
-        }
-
         btnCargarImg.setOnClickListener(v -> {
             Log.d("SignupActivity", "Botón de cargar imagen presionado");
             Toast.makeText(signup.this, "Botón presionado", Toast.LENGTH_SHORT).show();
