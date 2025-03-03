@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".clasificado">
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="129dp"
         android:text="{Aquí va el título}"
+        android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +59,8 @@
         android:layout_marginTop="45dp"
         android:layout_marginEnd="30dp"
         android:text="Guardar"
+        android:backgroundTint="@color/yellow_app"
+        android:textColor="@color/purple_app"
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -68,6 +72,8 @@
         android:layout_marginTop="45dp"
         android:layout_marginEnd="66dp"
         android:text="Postularme Ya"
+        android:backgroundTint="@color/yellow_app"
+        android:textColor="@color/purple_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 

@@ -22,11 +22,8 @@ import com.google.firebase.auth.OAuthProvider
 
 class LoginActivity : AppCompatActivity() {
 
-    // private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    //private lateinit var db: FirebaseFirestore
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -103,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
 
         val pendingResultTask = FirebaseAuth.getInstance().pendingAuthResult
         if (pendingResultTask != null) {
-            // Si ya hay una sesión pendiente, intenta iniciar sesión automáticamente
+
             pendingResultTask
                 .addOnSuccessListener {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
@@ -116,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
 
                 }
         } else {
-            // Si no hay sesión pendiente, iniciar sesión manualmente
+
             FirebaseAuth.getInstance()
                 .startActivityForSignInWithProvider(this, provider.build())
                 .addOnSuccessListener {

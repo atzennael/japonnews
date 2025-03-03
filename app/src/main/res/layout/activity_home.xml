@@ -32,7 +32,5 @@
         style="@style/BottomNavigation">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
 </RelativeLayout>
 

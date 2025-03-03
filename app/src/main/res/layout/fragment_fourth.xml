@@ -14,13 +14,15 @@
         android:layout_width="169dp"
         android:layout_height="151dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/avatar_15" />
+        android:src="@drawable/profile_ic" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cambiar Foto de Perfil" />
+        android:text="Cambiar Foto de Perfil"
+        android:backgroundTint="@color/purple_app"
+        android:textColor="@color/yellow_app"/>
 
     <TextView
         android:id="@+id/textView11"
@@ -68,5 +70,5 @@
         android:layout_height="wrap_content"
         android:text="Actualizar Datos"
         android:backgroundTint="@color/yellow_app"
-        android:textColor="@color/black"/>
+        android:textColor="@color/purple_app"/>
 </LinearLayout>

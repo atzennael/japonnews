@@ -11,9 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import java.util.Arrays;
 import java.util.List;
-//import com.example.japonnews.ImageAdapter;
-
-
 
 public class FirstFragment extends Fragment {
     private ViewPager2 viewPager;
