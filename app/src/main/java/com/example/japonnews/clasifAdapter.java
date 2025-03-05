@@ -22,6 +22,8 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
     private List<clasif_modelo> clasificados;
     private List<clasif_modelo> clasF;
 
+
+
     public clasifAdapter(Context context, List<clasif_modelo> clasificados) {
         this.context = context;
         this.clasificados = clasificados;
@@ -66,6 +68,7 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
             intent.putExtra("titulo", clasificado.getTitulo());
             intent.putExtra("detalle", clasificado.getDetalle());
             intent.putExtra("imagen", clasificado.getImagen());
+            intent.putExtra("tipoPublicacion", clasificado.getTipoPublicacion());
 
             Log.d("SavedActivity", "Enviando a clasificado: " + clasificado.getTitulo() + ", " + clasificado.getDetalle() + ", " + clasificado.getImagen());
             context.startActivity(intent);
@@ -86,6 +89,7 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
             titulo = itemView.findViewById(R.id.tvTitulo);
             detalle = itemView.findViewById(R.id.tvDetalle);
             imagen = itemView.findViewById(R.id.ivImagen);
+
         }
 
         public void bind(clasif_modelo clasificado, Context context) {
@@ -119,7 +123,9 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (clasif_modelo item : clasF) {
-                    if (item.getTitulo().toLowerCase().contains(filterPattern)) {
+                    if (item.getTitulo().toLowerCase().contains(filterPattern)
+                    || item.getDetalle().toLowerCase().contains(filterPattern)
+                    || item.getTipoPublicacion().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }

@@ -13,9 +13,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerPostulacionesActivity extends AppCompatActivity {
+public class verPostulacion extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private PostulacionAdapter adapter;
+    private post_adapter adapter;
     private List<post_modelo> listaPostulaciones = new ArrayList<>();
     private FirebaseFirestore db;
     private String ofertaID;
@@ -23,17 +23,16 @@ public class VerPostulacionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ver_postulaciones);
+        setContentView(R.layout.ver_post);
 
         recyclerView = findViewById(R.id.recyclerViewPostulaciones);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new PostulacionAdapter(listaPostulaciones);
+        adapter = new post_adapter(listaPostulaciones);
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
 
-        // Obtener el ID de la oferta desde el intent
         ofertaID = getIntent().getStringExtra("ofertaID");
 
         cargarPostulaciones();
@@ -51,7 +50,7 @@ public class VerPostulacionesActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
                 })
-                .addOnFailureListener(e -> Toast.makeText(VerPostulacionesActivity.this, "Error al cargar", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(verPostulacion.this, "Error al cargar", Toast.LENGTH_SHORT).show());
     }
 }
 

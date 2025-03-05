@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginStart="134dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="135dp"
         android:backgroundTint="@color/yellow_app"
         android:enabled="true"
@@ -43,7 +43,6 @@
         android:textColor="@color/purple_app"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
         app:strokeColor="#000000"
@@ -66,12 +65,12 @@
         android:id="@+id/textView3"
         android:layout_width="202dp"
         android:layout_height="34dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="52dp"
         android:text="Nombre Completo"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.251"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cargarImg" />
 
@@ -110,14 +109,14 @@
         android:id="@+id/textView5"
         android:layout_width="202dp"
         android:layout_height="34dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="Email"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.264"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumero" />
 
     <TextView
         android:id="@+id/textView4"
@@ -128,7 +127,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.267"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
@@ -168,42 +167,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:textColor="@color/black"
         android:layout_marginEnd="39dp"
         android:ems="15"
         android:hint="Ingresa aquí tu email constitucional"
         android:inputType="textEmailAddress"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="202dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="10dp"
-        android:text="Contraseña"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.264"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
-
     <EditText
-        android:id="@+id/editTextPassword"
-        android:hint="Ingresa aquí tu contraseña"
+        android:id="@+id/editTextNumero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:textColor="@color/black"
         android:layout_marginEnd="39dp"
         android:ems="15"
+        android:hint="Ingresa aquí tu número de teléfono"
         android:inputType="textPassword"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumero" />
+
+    <TextView
+        android:id="@+id/tvNumero"
+        android:layout_width="202dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="12dp"
+        android:text="Número de Teléfono"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="39dp"
+        android:ems="15"
+        android:hint="Ingresa aquí tu contraseña"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="202dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="15dp"
+        android:text="Contraseña"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

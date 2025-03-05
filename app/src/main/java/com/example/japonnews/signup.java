@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class signup extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class signup extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextIdentificacion;
+    private EditText editTextNumero;
     private FirebaseAuth auth;
     private ImageView imgProfile;
     private Uri imgUri;
@@ -51,6 +53,7 @@ public class signup extends AppCompatActivity {
         editTextIdentificacion = findViewById(R.id.editTextNumber);
         editTextEmail = findViewById(R.id.editTextTextEmailAddress);
         editTextPassword = findViewById(R.id.editTextPassword);
+        editTextNumero=findViewById(R.id.editTextNumero);
         btnCrearCuenta = findViewById(R.id.login3);
         imgProfile = findViewById(R.id.imageView2);
         btnCargarImg = findViewById(R.id.cargarImg);
@@ -82,14 +85,15 @@ public class signup extends AppCompatActivity {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String id = editTextIdentificacion.getText().toString().trim();
+        String numero = editTextNumero.getText().toString().trim();
 
-        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty() || id.isEmpty()) {
+        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty() || id.isEmpty() || numero.isEmpty()) {
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (password.length() < 6) {
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+        if (password.length() < 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -109,6 +113,7 @@ public class signup extends AppCompatActivity {
                             userData.put("uid", userId);
                             userData.put("nombre", nombre);
                             userData.put("id", id);
+                            userData.put("numero", numero);
                             userData.put("email", email);
                             userData.put("password", password);
                             userData.put("fotoPerfil", null);

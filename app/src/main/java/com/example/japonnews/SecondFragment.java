@@ -107,7 +107,8 @@ public class SecondFragment extends Fragment {
                                 clasificados.add(new clasif_modelo(
                                         document.getString("titulo"),
                                         document.getString("detalle"),
-                                        document.getString("imagen")
+                                        document.getString("imagen"),
+                                        document.getString("tipoPublicacion")
                                 ));
                             }
                             clasificadosLiveData.setValue(clasificados);

@@ -43,13 +43,24 @@
         android:layout_marginStart="174dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="175dp"
-        android:layout_marginBottom="225dp"
         android:text="Detalle"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+    <TextView
+        android:id="@+id/textViewDetalle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="137dp"
+        android:text="Tipo de Vacante"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetalle" />
 
     <Button
         android:id="@+id/button5"
@@ -76,5 +87,17 @@
         android:textColor="@color/purple_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/tvVacante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="182dp"
+        android:text="Pasantía"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetalle2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

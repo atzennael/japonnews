@@ -5,18 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +28,12 @@ public class new_job extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseAuth auth;
     private ImageView imageView;
-
     private EditText editTextTitulo, editTextDetalle;
     private Button buttonCrear, buttonCargar;
     private Uri imageUri;
+    private Spinner spinner;
+    private Timestamp fecha;
+    private String tipoPublicacion;
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -47,12 +51,15 @@ public class new_job extends AppCompatActivity {
         buttonCargar = findViewById(R.id.buttonCargar);
         buttonCrear = findViewById(R.id.buttonCrear);
         imageView = findViewById(R.id.imageView6);
+        spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.tiposSpinner, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
 
         buttonCargar.setOnClickListener(v -> abrirGaleria());
-        buttonCrear.setOnClickListener(v->{
-            Toast.makeText(this, "Boton presionado", Toast.LENGTH_SHORT).show();
-            imgClasif();
-        });
+        buttonCrear.setOnClickListener(v-> imgClasif());
     }
 
     private void abrirGaleria() {
@@ -71,6 +78,8 @@ public class new_job extends AppCompatActivity {
     private void imgClasif(){
         String titulo= editTextTitulo.getText().toString().trim();
         String detalle = editTextDetalle.getText().toString().trim();
+        fecha = new Timestamp(new Date());
+        tipoPublicacion=spinner.getSelectedItem().toString();
 
         if (titulo.isEmpty()||detalle.isEmpty()){
             Toast.makeText(this,"Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
@@ -87,20 +96,23 @@ public class new_job extends AppCompatActivity {
                 storageReference.putFile(imageUri)
                         .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl()
                                 .addOnSuccessListener(uri -> {
-                                    guardarClasif(clasifId, userId, titulo, detalle, uri.toString());
+                                    guardarClasif(clasifId, userId, titulo, detalle, uri.toString(), tipoPublicacion, fecha);
                                 }))
                         .addOnFailureListener(e -> {
                             Log.e("Error clasif", e.getMessage());
                             Toast.makeText(this, "Error al crear el clasificado",Toast.LENGTH_SHORT).show();
                         });
     }
-    private void guardarClasif(String clasifId, String userId, String titulo, String detalle, String imageUri){
+    private void guardarClasif(String clasifId, String userId, String titulo, String detalle, String imageUri,
+                               String tipoPublicacion, Timestamp fecha){
 Map<String, Object> clasificado = new HashMap<>();
 clasificado.put("clasifId", clasifId);
 clasificado.put("userId", userId);
 clasificado.put("titulo", titulo);
 clasificado.put("detalle", detalle);
 clasificado.put("imagen", imageUri);
+clasificado.put("tipoPublicacion", tipoPublicacion);
+clasificado.put("fecha", fecha);
 
 db.collection("clasificados").document(clasifId)
         .set(clasificado)
@@ -115,8 +127,10 @@ db.collection("clasificados").document(clasifId)
             intent.putExtra("titulo", titulo);
             intent.putExtra("detalle", detalle);
             intent.putExtra("imagen", imageUri);
+            intent.putExtra("tipoPublicacion", tipoPublicacion);
+            intent.putExtra("fecha", fecha);
             startActivity(intent);
-            //finish();
+            finish();
         })
         .addOnFailureListener(e -> {
             Log.e("Error clasif", e.getMessage());
