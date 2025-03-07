@@ -1,64 +1,162 @@
 package com.example.japonnews;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FourthFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+
 public class FourthFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private EditText editTextNombre;
+    private EditText editTextPassword;
+    private EditText editTextNumero, editTextIdentificacion;
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
+    private ImageView imgProfile;
+    private Uri imgUri;
+    private Button btnCargarImg;
+    private Button btnActualizar, buttonMisPostulaciones, buttonMisPublicaciones;
+    private static final int PICK_IMAGE_REQUEST =1;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FourthFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FourthFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FourthFragment newInstance(String param1, String param2) {
-        FourthFragment fragment = new FourthFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fourth, container, false);
+        View view = inflater.inflate(R.layout.fragment_fourth, container, false);
+        auth = FirebaseAuth.getInstance();
+        db =FirebaseFirestore.getInstance();
+
+        imgProfile= view.findViewById(R.id.imageView4);
+        btnCargarImg=view.findViewById(R.id.button3);
+        btnActualizar=view.findViewById(R.id.button4);
+        editTextNombre=view.findViewById(R.id.editTextText4);
+        editTextIdentificacion=view.findViewById(R.id.editTextText5);
+        editTextNumero=view.findViewById(R.id.editTextNumber2);
+        editTextPassword=view.findViewById(R.id.editTextContrasena);
+        buttonMisPostulaciones=view.findViewById(R.id.buttonMisPostulaciones);
+        buttonMisPublicaciones=view.findViewById(R.id.buttonMisPublicaciones);
+        cargarData();
+
+btnCargarImg.setOnClickListener(v -> cargarImgPerfil());
+
+btnActualizar.setOnClickListener(v -> actualizarData());
+
+buttonMisPublicaciones.setOnClickListener(v -> {
+    Intent intent = new Intent(getActivity(), mispublicaciones.class);
+    startActivity(intent);
+});
+
+buttonMisPostulaciones.setOnClickListener(v -> {
+    Intent intent = new Intent(getActivity(), mispostulaciones.class);
+    startActivity(intent);
+});
+        return view;
+    }
+
+    private void cargarImgPerfil(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==PICK_IMAGE_REQUEST&&resultCode==RESULT_OK&&data != null&&data.getData()!=null){
+            imgUri = data.getData();
+            imgProfile.setImageURI(imgUri);
+            Log.d("FFragment", "Imagen seleccionada: " + imgUri.toString());
+        } else{
+            Log.e("FFragment", "No se seleccionó ninguna imagen o hubo un error");
+        }
+    }
+
+    private void guardarImg(String userId){
+        if (imgUri!=null){
+            StorageReference fileRef = FirebaseStorage.getInstance().getReference("profile_pics")
+                    .child(userId+".jpg");
+            fileRef.putFile(imgUri)
+                    .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String downloadUrl = uri.toString();
+                        FirebaseFirestore.getInstance().collection("usuarios").document(userId)
+                                .update("fotoPerfil", downloadUrl)
+                                .addOnSuccessListener(aVoid -> Log.d("FFragment", "Foto de perfil guardada"))
+                                .addOnFailureListener(e -> Log.e("FFragment","Error: ", e));
+                    }))
+                    .addOnFailureListener(e-> Log.e("FFragment", "Error al subir la imagen: ", e));
+        }
+    }
+
+    private void actualizarData(){
+        String userId = auth.getCurrentUser().getUid();
+        String nombre = editTextNombre.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        String numero = editTextNumero.getText().toString().trim();
+
+        db.collection("usuarios").document(userId)
+                .update(
+                        "nombre", nombre,
+                        "password", password,
+                        "telefono", numero
+                ).addOnSuccessListener(aVoid ->{
+                    Log.d("FFragment", "Los datos se actualizaron" + nombre + password + numero);
+                    guardarImg(userId);
+                    Toast.makeText(getContext(), "¡Tus datos se actualizaron correctamente!", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(e -> {
+                    Log.e("FFragment", "No se actualizaron los datos");
+                    Toast.makeText(getContext(), "No se actualizaron tus datos. Por favor, intente nuevamente.", Toast.LENGTH_SHORT).show();
+                }
+);}
+    private void cargarData(){
+        String userId=auth.getCurrentUser().getUid();
+        db.collection("usuarios").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()){
+                        String nombre = documentSnapshot.getString("nombre");
+                        String id = documentSnapshot.getString("id");
+                        String telefono = documentSnapshot.getString("telefono");
+                        String password = documentSnapshot.getString("password");
+                        String fotoPerfilUrl=documentSnapshot.getString("fotoPerfil");
+
+                        editTextNombre.setText(nombre);
+                        editTextIdentificacion.setText(id);
+                        editTextNumero.setText(telefono);
+                        editTextPassword.setText(password);
+                        if (fotoPerfilUrl != null && !fotoPerfilUrl.isEmpty()) {
+                            Glide.with(requireContext())
+                                    .load(fotoPerfilUrl)
+                                    .placeholder(R.drawable.japonnews_logo) // Imagen por defecto mientras carga
+                                    .error(R.drawable.error) // Imagen en caso de error
+                                    .into(imgProfile); // ImageView donde se mostrará la imagen
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("FFragment", "No hay datos por cargar"));
     }
 }

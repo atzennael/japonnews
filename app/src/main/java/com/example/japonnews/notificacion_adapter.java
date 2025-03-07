@@ -34,7 +34,7 @@ public class notificacion_adapter extends RecyclerView.Adapter<notificacion_adap
         holder.tvNotificacion.setText(notificacion.getMensaje());
         if (notificacion.getFecha() != null) {
             holder.tvFecha.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm",
-                    Locale.getDefault()).format(notificacion.getFecha().toDate()));
+                    Locale.getDefault()).format(notificacion.getFecha().getTimestamp()));
         }
     }
 

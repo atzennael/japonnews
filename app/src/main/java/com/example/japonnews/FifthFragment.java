@@ -38,20 +38,21 @@ public class FifthFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fifth, container, false);
 
-         auth = FirebaseAuth.getInstance();
-         db = FirebaseFirestore.getInstance();
-         userId = auth.getCurrentUser().getUid();
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userId = auth.getCurrentUser().getUid();
 
-         recyclerView=view.findViewById(R.id.recyclerViewNotificaciones);
-         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView = view.findViewById(R.id.recyclerViewNotificaciones);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-         listaNotificaciones=new ArrayList<>();
-         adapter = new notificacion_adapter(listaNotificaciones);
-         recyclerView.setAdapter(adapter);
+        listaNotificaciones = new ArrayList<>();
+        adapter = new notificacion_adapter(listaNotificaciones);
+        recyclerView.setAdapter(adapter);
 
-         cargarNotificaciones();
+        cargarNotificaciones();
 
-         return view;
+        return view;
+    }
 
          private void cargarNotificaciones(){
             db.collection("notificaciones")
@@ -68,7 +69,5 @@ public class FifthFragment extends Fragment {
                     })
                     .addOnFailureListener(e -> Log.e("Firestore", "Error al cargar notificaciones", e));
         }
-
-
     }
-}
+

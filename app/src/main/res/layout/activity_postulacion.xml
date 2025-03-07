@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".postulation">
 
+    <!-- Contenedor principal -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,38 +15,47 @@
         android:padding="16dp"
         android:gravity="center_horizontal">
 
+        <!-- Imagen de la oferta -->
         <ImageView
             android:id="@+id/imageViewOferta"
-            android:layout_width="200dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/japonnews_logo" />
 
+        <!-- Título de la oferta -->
+
+        <!-- Descripción de la oferta -->
         <TextView
             android:id="@+id/textViewTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="16dp"
             android:text="Título de la Oferta"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingTop="8dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewDetalle"
             android:layout_width="match_parent"
+            android:paddingTop="25dp"
             android:layout_height="wrap_content"
             android:text="Descripción"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:gravity="center"
-            android:paddingBottom="12dp" />
+            android:paddingBottom="25dp" />
 
+        <!-- Separador -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="24dp"/>
 
+        <!-- Sección de datos del usuario -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,12 +69,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre"
+            android:paddingBottom="8dp"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textViewCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="Correo"
             android:textSize="14sp" />
 
@@ -69,18 +85,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Teléfono"
+            android:paddingBottom="30dp"
             android:textSize="14sp" />
 
+        <!-- Botón de confirmación -->
         <Button
             android:id="@+id/buttonConfirmar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="@color/yellow_app"
             android:text="Confirmar Postulación"
             android:textColor="@color/purple_app" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

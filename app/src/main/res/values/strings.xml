@@ -21,9 +21,12 @@
     <string name="clasificados">Clasificados</string>
     <string name="guardados">Guardados</string>
     <string name="mi_perfil">Mi Perfil</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="nav_notificaciones">Notificaciones</string>
     <string-array name="tiposSpinner">
+        <item>Oferta Laboral</item>
         <item>Pasantía</item>
-        <item>Medio Tiempo</item>
-        <item>Tiempo Completo</item>
+        <item>Proyecto</item>
+        <item>Práctica Preprofesional</item>
     </string-array>
 </resources>

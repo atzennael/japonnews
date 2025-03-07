@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="8dp"
-    tools:context=".NotificacionesActivity">
+    tools:context=".mispublicaciones"
+    android:background="@color/white">
 
-    <!-- Barra superior -->
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -18,30 +18,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/tv22"
+        android:id="@+id/tvMisPublicaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mis notificaciones"
+        android:text="Mis Publicaciones"
+        android:textAlignment="center"
+        android:textColor="@color/yellow_app"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/yellow_app"
-        android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/view"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Lista de notificaciones -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNotificaciones"
+        android:id="@+id/recyclerViewMisPublicaciones"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:overScrollMode="never"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/tvSinPublicaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No tienes publicaciones aún"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:textColor="@android:color/darker_gray"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

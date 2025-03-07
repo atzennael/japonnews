@@ -36,6 +36,7 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
         clasF.addAll(newList);
         clasificados.clear();
         clasificados.addAll(newList);
+        clasF = new ArrayList<>(newList);
         if (clasificados.isEmpty()) {
             Log.e("Adapter", "Lista vacía después de actualizar");
         }
@@ -124,13 +125,17 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (clasif_modelo item : clasF) {
                     if (item.getTitulo().toLowerCase().contains(filterPattern)
-                    || item.getDetalle().toLowerCase().contains(filterPattern)
-                    || item.getTipoPublicacion().toLowerCase().contains(filterPattern)) {
+                            || item.getDetalle().toLowerCase().contains(filterPattern)
+                            || item.getTipoPublicacion().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
             }
-            Log.d("Filtro", "Elementos filtrados: " + filteredList.size());
+            if(filteredList.isEmpty()){
+                Log.d("Filtro", "No se encontraron coincidencias");
+            } else {
+                Log.d("Filtro", "Elementos filtrados: " + filteredList.size());
+            }
 
             FilterResults results = new FilterResults();
             results.values = filteredList;
@@ -141,7 +146,9 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             clasificados.clear();
-            clasificados.addAll((List<clasif_modelo>) results.values);
+            if(results.values!=null){
+                clasificados.addAll((List<clasif_modelo>) results.values);
+            }
             notifyDataSetChanged();
         }
     };

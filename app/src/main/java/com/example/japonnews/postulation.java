@@ -7,12 +7,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +25,8 @@ public class postulation extends AppCompatActivity {
     private Button btnConfirmar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private String titulo, detalle, imagen, userId, clasifId, creadorId;
+    private String titulo, detalle, imagen, userId, clasifId,
+            creadorId, telefono, idPublicacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,9 @@ public class postulation extends AppCompatActivity {
             titulo = intent.getStringExtra("titulo");
             detalle = intent.getStringExtra("detalle");
             imagen = intent.getStringExtra("imagen");
+            clasifId = intent.getStringExtra("clasifId"); // Obtener clasifId enviado
+
+            Log.d("Firestore", "Recibido clasifId: " + clasifId);
 
             textViewTitulo.setText(titulo);
             textViewDetalle.setText(detalle);
@@ -74,98 +81,75 @@ public class postulation extends AppCompatActivity {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()){
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
-                         clasifId = document.getId();
+                         //clasifId = document.getString("clasifId");
                          creadorId = document.getString("userId");
                     }
                 });
 
-
-        // Botón de Confirmar Postulación
         btnConfirmar.setOnClickListener(v -> {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String userId = auth.getCurrentUser().getUid();
-            db.collection("clasificados")
-                    .whereEqualTo("titulo", titulo)
-                    .whereEqualTo("detalle", detalle)
-                    .get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
-                            String clasifId = document.getId();
-                            String creadorId = document.getString("userId");
-
-                            Map<String, Object> postulacion = new HashMap<>();
-                            postulacion.put("id_usuario", userId);
-                            postulacion.put("id_publicacion", clasifId);
-                            postulacion.put("fecha_publicacion", FieldValue.serverTimestamp());
-
-                            db.collection("postulaciones")
-                                    .add(postulacion)
-                                    .addOnSuccessListener(documentReference -> {
-                                        Log.d("Postulacion", "Postulacion guardada: "
-                                                + documentReference.getId());
-                                        enviarNotificacion(creadorId, userId);
-                                        Toast.makeText(postulation.this, "¡Postulación enviada con éxito!",
-                                                Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    })
-                                    .addOnFailureListener(e -> Log.e ("Postulacion", "Se envió con error: ", e));
-                        } else {
-                            Log.e("Postulacion", "No se encontró publicación en firestore");
-                        }
-                    })
-                    .addOnFailureListener(e -> Log.e("Postulacion", "No se encontró publicación en firestore", e));
+            if(clasifId==null){
+                obtenerClasificado();
+            } else {
+                guardarPostulacion(clasifId);
+            }
         });
     }
 
-    private void guardarPostulacion() {
-        if (clasifId == null || creadorId == null){
-            Toast.makeText(this, "Error: No se pudo obtener la publicación", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Map<String, Object> postulacion = new HashMap<>();
-        postulacion.put("fecha_postulacion", FieldValue.serverTimestamp());
-        postulacion.put("id_clasificado", clasifId);
-        postulacion.put("id_usuario", userId);
-
-        db.collection("postulaciones").add(postulacion)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(postulation.this, "Postulación enviada", Toast.LENGTH_SHORT).show();
-                    enviarPostulacion();
-                    finish();
-                })
-                .addOnFailureListener(e -> Toast.makeText(postulation.this, "Error al postular", Toast.LENGTH_SHORT).show());
-    }
-    private void enviarPostulacion(){
-        Map<String, Object> mensaje = new HashMap<>();
-        mensaje.put("id_destino", creadorId);  // ID del usuario que creó la publicación
-        mensaje.put("id_remitente", userId);
-        mensaje.put("mensaje", "Un usuario se ha postulado a tu oferta: " + titulo);
-        mensaje.put("fecha_envio", FieldValue.serverTimestamp());
-
-        db.collection("mensajes").add(mensaje)
-                .addOnSuccessListener(documentReference -> Log.d("Mensaje", "Mensaje enviado al creador"))
-                .addOnFailureListener(e -> Log.e("Mensaje", "Error al enviar mensaje", e));
-    }
-    private void enviarNotificacion(String creadorId, String userId){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("usuarios").document(userId).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()){
-                        String nombrePostulante = documentSnapshot.getString("nombre");
-
-                        Map<String, Object> notificacion = new HashMap<>();
-                        notificacion.put("receptor", creadorId);
-                        notificacion.put("mensaje", nombrePostulante+" se ha postulado a tu oferta");
-                        notificacion.put("fecha", FieldValue.serverTimestamp());
-
-                        db.collection("notificaciones")
-                                .add(notificacion)
-                                .addOnSuccessListener(documentReference -> Log.d ("Postulacion", "La notificación fue enviada"))
-                        .addOnFailureListener(e -> Log.e ("Postulacion", "La notificación no se envió", e));
+    private void obtenerClasificado(){
+        db.collection("clasificados")
+                .whereEqualTo("titulo", titulo)
+                .whereEqualTo("detalle", detalle)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()){
+                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                        //clasifId=documentSnapshot.getId();
+                        creadorId = documentSnapshot.getString("userId");
+                        guardarPostulacion(clasifId);
                     }
                 })
-                .addOnFailureListener(e -> Log.e("Firestore", "Error al obtener datos del postulante", e));
+                .addOnFailureListener(e -> Log.e("Postulacion", "Error obteniendo clasifId", e));
+    }
+
+    private void guardarPostulacion(String clasifId) {
+        String userId = mAuth.getCurrentUser().getUid();
+
+        if (clasifId == null || clasifId.isEmpty()) {
+            Log.e("Firestore", "Error: clasifId es nulo o vacío, no se puede guardar la postulación.");
+            return;
+        }
+
+        // Verificar si el usuario ya se postuló antes de guardar
+        db.collection("postulaciones")
+                .whereEqualTo("id_usuario", userId)
+                .whereEqualTo("id_publicacion", clasifId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        Log.d("Firestore", "Ya existe una postulación para esta publicación: " + clasifId);
+                        Toast.makeText(this, "Ya te postulaste a esta oferta.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Si no hay postulación, guardamos la nueva
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("id_usuario", userId);
+                        data.put("id_publicacion", clasifId); // Ahora se guarda correctamente
+                        data.put("fecha_postulacion", FieldValue.serverTimestamp());
+
+                        db.collection("postulaciones")
+                                .add(data)
+                                .addOnSuccessListener(documentReference -> {
+                                    Log.d("Firestore", "Postulación guardada correctamente: " + documentReference.getId());
+                                    Toast.makeText(this, "Te has postulado correctamente", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e("Firestore", "Error al guardar postulación", e);
+                                    Toast.makeText(this, "Error al postularse", Toast.LENGTH_SHORT).show();
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Error al verificar postulaciones previas", e));
     }
 }
+
+

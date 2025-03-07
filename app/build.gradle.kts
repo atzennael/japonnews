@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.japonnews"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -75,15 +75,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.viewpager2)
-    implementation ("com.google.firebase:firebase-auth:22.1.1")
-    implementation ("com.google.firebase:firebase-database:21.0.0")
-    implementation ("com.squareup.picasso:picasso:2.8")
-    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
-    implementation("com.google.firebase:firebase-storage:20.2.1")
-    implementation ("com.google.firebase:firebase-firestore:24.9.1")
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
-    implementation ("com.google.code.gson:gson:2.8.9")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-    implementation("com.google.firebase:firebase-messaging:23.3.1")
+    implementation (libs.firebase.auth.v2211)
+    implementation (libs.firebase.database)
+    implementation (libs.picasso)
+    implementation(libs.firebase.bom)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.storage.v2021)
+    implementation (libs.firebase.firestore)
+    implementation (libs.glide)
+    implementation (libs.gson)
+    annotationProcessor(libs.compiler)
+    implementation(libs.firebase.messaging)
 }

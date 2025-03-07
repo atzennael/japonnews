@@ -21,7 +21,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class signup extends AppCompatActivity {
@@ -49,18 +48,17 @@ public class signup extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        editTextNombre = findViewById(R.id.editTextText);
+        editTextNombre = findViewById(R.id.editTextText4);
         editTextIdentificacion = findViewById(R.id.editTextNumber);
         editTextEmail = findViewById(R.id.editTextTextEmailAddress);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        editTextNumero=findViewById(R.id.editTextNumero);
+        editTextPassword = findViewById(R.id.editTextContrasena);
+        editTextNumero=findViewById(R.id.editTextNumber);
         btnCrearCuenta = findViewById(R.id.login3);
         imgProfile = findViewById(R.id.imageView2);
         btnCargarImg = findViewById(R.id.cargarImg);
 
         btnCargarImg.setOnClickListener(v -> {
             Log.d("SignupActivity", "Botón de cargar imagen presionado");
-            Toast.makeText(signup.this, "Botón presionado", Toast.LENGTH_SHORT).show();
             cargarImagen();
         });
 

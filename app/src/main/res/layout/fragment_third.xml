@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ThirdFragment">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/textView16"
+    <!-- Barra superior -->
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/purple_app"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Título en la barra superior -->
+    <TextView
+        android:id="@+id/tv22"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="20dp"
-        android:text="Tus Clasificados Guardados"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:text="Guardados"
+        android:textAlignment="center"
+        android:textColor="@color/yellow_app"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSaved"
         android:layout_width="match_parent"
-        android:layout_height="600dp"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        tools:layout_editor_absoluteX="8dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

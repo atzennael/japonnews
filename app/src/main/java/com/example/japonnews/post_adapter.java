@@ -3,6 +3,7 @@ package com.example.japonnews;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class post_adapter extends RecyclerView.Adapter<post_adapter.ViewHolder> 
         holder.textViewNombre.setText(postulacion.getNombre());
         holder.textViewCorreo.setText(postulacion.getCorreo());
         holder.textViewTelefono.setText(postulacion.getTelefono());
+
     }
 
     @Override
@@ -39,12 +41,15 @@ public class post_adapter extends RecyclerView.Adapter<post_adapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNombre, textViewCorreo, textViewTelefono;
+        Button btnEliminarPostulacion;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombre = itemView.findViewById(R.id.textViewNombre);
             textViewCorreo = itemView.findViewById(R.id.textViewCorreo);
             textViewTelefono = itemView.findViewById(R.id.textViewTelefono);
+            btnEliminarPostulacion = itemView.findViewById(R.id.btnEliminarPostulacion);
+
         }
     }
 }

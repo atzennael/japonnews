@@ -28,7 +28,7 @@ public class clasificado extends AppCompatActivity {
     private TextView textViewTitulo, textViewDetalle, tvVacante;
     private ImageView imageViewClasificado;
     private Button btnGuardar, btnPostularme;
-    private String titulo, detalle, imagen, tipoPublicacion;
+    private String titulo, detalle, imagen, tipoPublicacion, clasifId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,26 +43,40 @@ public class clasificado extends AppCompatActivity {
         btnPostularme = findViewById(R.id.button6);
 
         btnPostularme.setOnClickListener(v -> {
-            Intent intentPostulacion = new Intent(clasificado.this, postulation.class);
-            intentPostulacion.putExtra("titulo", titulo);
-            intentPostulacion.putExtra("detalle", detalle);
-            intentPostulacion.putExtra("imagen", imagen);
-            startActivity(intentPostulacion);
-            if (titulo.isEmpty()||titulo==null||detalle.isEmpty()||detalle==null||imagen.isEmpty()||imagen==null){
-                Log.e("Postulacion", "No se envió" + titulo + imagen + detalle);
-            } else {
-                Log.d ("Postulacion", "Se envió");
-            }
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("clasificados")
+                    .whereEqualTo("titulo", titulo)
+                    .whereEqualTo("detalle", detalle)
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
+                            String clasifId = document.getId();
+
+                            Log.d("Firestore", "Enviado clasifId: " + clasifId);
+
+                            Intent intentPostulacion = new Intent(clasificado.this, postulation.class);
+                            intentPostulacion.putExtra("titulo", titulo);
+                            intentPostulacion.putExtra("detalle", detalle);
+                            intentPostulacion.putExtra("imagen", imagen);
+                            intentPostulacion.putExtra("clasifId", clasifId); // Enviar ID del clasificado
+                            startActivity(intentPostulacion);
+                        } else {
+                            Log.e("Firestore", "No se encontró la publicación en Firestore");
+                        }
+                    })
+                    .addOnFailureListener(e -> Log.e("Firestore", "Error al obtener clasifId", e));
         });
 
 
         // Recibir datos del intent
         Intent intent = getIntent();
         if (intent != null) {
-             titulo = intent.getStringExtra("titulo");
-             detalle = intent.getStringExtra("detalle");
-             imagen = intent.getStringExtra("imagen");
-             tipoPublicacion = intent.getStringExtra("tipoPublicacion");
+            titulo = intent.getStringExtra("titulo");
+            detalle = intent.getStringExtra("detalle");
+            imagen = intent.getStringExtra("imagen");
+            tipoPublicacion = intent.getStringExtra("tipoPublicacion");
 
             Log.d("SavedActivity", "Datos recibidos en clasificado: " + titulo + ", "
                     + detalle + ", " + imagen);
@@ -122,13 +136,13 @@ public class clasificado extends AppCompatActivity {
                 || item.getTipoPublicacion()== null);
 
 
-    for (clasif_modelo item : listaSaved) {
-        if (item.getTitulo().equals(titulo) && item.getDetalle().equals(detalle)
-                && item.getImagen().equals(imagen) && item.getTipoPublicacion().equals(tipoPublicacion)) {
-            Toast.makeText(this, "Ya añadiste esta publicación a tus Guardados", Toast.LENGTH_SHORT).show();
-            return;
+        for (clasif_modelo item : listaSaved) {
+            if (item.getTitulo().equals(titulo) && item.getDetalle().equals(detalle)
+                    && item.getImagen().equals(imagen) && item.getTipoPublicacion().equals(tipoPublicacion)) {
+                Toast.makeText(this, "Ya añadiste esta publicación a tus Guardados", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
-    }
 
         clasif_modelo newList = new clasif_modelo(titulo, detalle, imagen, tipoPublicacion);
         listaSaved.add(newList);
@@ -169,7 +183,5 @@ public class clasificado extends AppCompatActivity {
 
                 })
                 .addOnFailureListener(e -> Log.e ("Clasificado", "Error al obtener ClasifId"));
-
-
     }
 }

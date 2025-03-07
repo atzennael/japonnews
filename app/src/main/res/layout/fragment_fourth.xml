@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FourthFragment">
-
+    tools:context=".FourthFragment"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/imageView4"
@@ -22,47 +22,82 @@
         android:layout_height="wrap_content"
         android:text="Cambiar Foto de Perfil"
         android:backgroundTint="@color/purple_app"
-        android:textColor="@color/yellow_app"/>
+        android:textColor="@color/yellow_app"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:text="Nombre"
         android:textAlignment="textStart"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextText4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:padding="8dp" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Identificación" />
+        android:text="Identificación"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextText5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:padding="8dp" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Celular" />
+        android:text="Celular"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextNumber2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="phone"
+        android:layout_marginTop="8dp"
+        android:padding="8dp" />
+
+    <!-- Añadido TextView y EditText para la contraseña -->
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contraseña"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextContrasena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_marginTop="8dp"
+        android:padding="8dp" />
 
     <Button
         android:id="@+id/button4"
@@ -70,5 +105,28 @@
         android:layout_height="wrap_content"
         android:text="Actualizar Datos"
         android:backgroundTint="@color/yellow_app"
-        android:textColor="@color/purple_app"/>
+        android:textColor="@color/purple_app"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/buttonMisPostulaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mis Postulaciones"
+        android:backgroundTint="@color/purple_app"
+        android:textColor="@color/yellow_app"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/buttonMisPublicaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mis Publicaciones"
+        android:backgroundTint="@color/purple_app"
+        android:textColor="@color/yellow_app"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center" />
+
 </LinearLayout>

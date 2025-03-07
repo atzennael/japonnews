@@ -130,11 +130,16 @@ db.collection("clasificados").document(clasifId)
             intent.putExtra("tipoPublicacion", tipoPublicacion);
             intent.putExtra("fecha", fecha);
             startActivity(intent);
+            guardarMisPublicaciones();
             finish();
         })
         .addOnFailureListener(e -> {
             Log.e("Error clasif", e.getMessage());
             Toast.makeText(this, "No se pudo crear tu publicación. Intenta nuevamente", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void guardarMisPublicaciones(){
+
     }
 }
