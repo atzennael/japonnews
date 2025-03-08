@@ -1,132 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".FourthFragment"
-    android:padding="16dp">
+    android:paddingBottom="80dp">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_gravity="center"
-        android:layout_width="169dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/profile_ic" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cambiar Foto de Perfil"
-        android:backgroundTint="@color/purple_app"
-        android:textColor="@color/yellow_app"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center" />
-
-    <TextView
-        android:id="@+id/textView11"
+    <!-- LinearLayout dentro del ScrollView -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nombre"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="80dp">
 
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:layout_marginTop="8dp"
-        android:padding="8dp" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_gravity="center"
+            android:layout_width="169dp"
+            android:layout_height="151dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/profile_ic" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Identificación"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cambiar Foto de Perfil"
+            android:backgroundTint="@color/purple_app"
+            android:textColor="@color/yellow_app"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center" />
 
-    <EditText
-        android:id="@+id/editTextText5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:layout_marginTop="8dp"
-        android:padding="8dp" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Celular"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp" />
+        <EditText
+            android:id="@+id/editTextText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:layout_marginTop="8dp"
+            android:padding="8dp" />
 
-    <EditText
-        android:id="@+id/editTextNumber2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        android:layout_marginTop="8dp"
-        android:padding="8dp" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Identificación"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp" />
 
-    <!-- Añadido TextView y EditText para la contraseña -->
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Contraseña"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp" />
+        <EditText
+            android:id="@+id/editTextText5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:layout_marginTop="8dp"
+            android:padding="8dp" />
 
-    <EditText
-        android:id="@+id/editTextContrasena"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_marginTop="8dp"
-        android:padding="8dp" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Celular"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Actualizar Datos"
-        android:backgroundTint="@color/yellow_app"
-        android:textColor="@color/purple_app"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center" />
+        <EditText
+            android:id="@+id/editTextNumber2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            android:layout_marginTop="8dp"
+            android:padding="8dp" />
 
-    <Button
-        android:id="@+id/buttonMisPostulaciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mis Postulaciones"
-        android:backgroundTint="@color/purple_app"
-        android:textColor="@color/yellow_app"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center" />
+        <!-- Añadido TextView y EditText para la contraseña -->
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Contraseña"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/buttonMisPublicaciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mis Publicaciones"
-        android:backgroundTint="@color/purple_app"
-        android:textColor="@color/yellow_app"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center" />
+        <EditText
+            android:id="@+id/editTextContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_marginTop="8dp"
+            android:padding="8dp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Datos"
+            android:backgroundTint="@color/yellow_app"
+            android:textColor="@color/purple_app"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/buttonMisPostulaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/purple_app"
+            android:text="Ver Mis Postulaciones"
+            android:textColor="@color/yellow_app" />
+
+        <Button
+            android:id="@+id/buttonMisPublicaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/purple_app"
+            android:text="Ver Mis Publicaciones"
+            android:textColor="@color/yellow_app" />
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/yellow_app"
+            android:text="Cerrar Sesión"
+            android:textColor="@color/purple_app" />
+
+    </LinearLayout>
+</ScrollView>
+

@@ -2,6 +2,7 @@ package com.example.japonnews;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.japonnews.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,7 +36,7 @@ public class FourthFragment extends Fragment {
     private ImageView imgProfile;
     private Uri imgUri;
     private Button btnCargarImg;
-    private Button btnActualizar, buttonMisPostulaciones, buttonMisPublicaciones;
+    private Button btnActualizar, buttonMisPostulaciones, buttonMisPublicaciones, btnLogout;
     private static final int PICK_IMAGE_REQUEST =1;
 
 
@@ -43,6 +45,7 @@ public class FourthFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class FourthFragment extends Fragment {
         editTextPassword=view.findViewById(R.id.editTextContrasena);
         buttonMisPostulaciones=view.findViewById(R.id.buttonMisPostulaciones);
         buttonMisPublicaciones=view.findViewById(R.id.buttonMisPublicaciones);
+        btnLogout=view.findViewById(R.id.buttonLogout);
         cargarData();
 
 btnCargarImg.setOnClickListener(v -> cargarImgPerfil());
@@ -74,6 +78,8 @@ buttonMisPostulaciones.setOnClickListener(v -> {
     Intent intent = new Intent(getActivity(), mispostulaciones.class);
     startActivity(intent);
 });
+
+btnLogout.setOnClickListener(v -> logout());
         return view;
     }
 
@@ -158,5 +164,13 @@ buttonMisPostulaciones.setOnClickListener(v -> {
                     }
                 })
                 .addOnFailureListener(e -> Log.e("FFragment", "No hay datos por cargar"));
+    }
+
+    private void logout(){
+        auth = FirebaseAuth.getInstance();
+        auth.signOut();
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

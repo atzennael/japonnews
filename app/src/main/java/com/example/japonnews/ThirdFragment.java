@@ -13,16 +13,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ThirdFragment extends Fragment {
     private RecyclerView recyclerView;
     private clasifAdapter adapter;
     private List <clasif_modelo> listaSaved = new ArrayList<>();
+    private FirebaseFirestore db;
+    private FirebaseAuth auth;
+    private String clasifId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,23 +49,25 @@ public class ThirdFragment extends Fragment {
         return view;
     }
 
-    private void cargarSavedC(){
+    private void cargarSavedC() {
         SharedPreferences preferences = requireActivity().getSharedPreferences("Guardados", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String savedJson = preferences.getString("guardados", null);
 
-        if (savedJson!=null){
-            Type type=new TypeToken<List<clasif_modelo>>() {}.getType();
+        if (savedJson != null) {
+            Type type = new TypeToken<List<clasif_modelo>>() {
+            }.getType();
             listaSaved.clear();
             listaSaved.addAll(gson.fromJson(savedJson, type));
 
-            for (clasif_modelo item:listaSaved) {
+            for (clasif_modelo item : listaSaved) {
                 Log.d("ThirdFragment", "Elemento cargado - Título: " + item.getTitulo()
                         + ", Detalle: " + item.getDetalle() + ", Imagen: " + item.getImagen());
             }
             if (adapter != null) {
                 adapter.notifyDataSetChanged();
-            } } else {
+            }
+        } else {
             Log.d("ThirdFragment", "no hay datos");
         }
     }

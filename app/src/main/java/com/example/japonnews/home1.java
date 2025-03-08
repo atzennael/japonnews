@@ -15,8 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class home1 extends AppCompatActivity
-{
+public class home1 extends AppCompatActivity {
+
     FirstFragment firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
     ThirdFragment thirdFragment = new ThirdFragment();
@@ -43,6 +43,11 @@ public class home1 extends AppCompatActivity
                     Log.d("FCM", "Token: " + token);
                     guardarToken(token);
                 });
+
+        if(savedInstanceState==null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FirstFragment())
+                    .commit();
+        }
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -83,7 +88,7 @@ public class home1 extends AppCompatActivity
         FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
-
     }
+
 
 }

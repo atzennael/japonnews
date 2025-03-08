@@ -22,8 +22,6 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
     private List<clasif_modelo> clasificados;
     private List<clasif_modelo> clasF;
 
-
-
     public clasifAdapter(Context context, List<clasif_modelo> clasificados) {
         this.context = context;
         this.clasificados = clasificados;
@@ -37,9 +35,6 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
         clasificados.clear();
         clasificados.addAll(newList);
         clasF = new ArrayList<>(newList);
-        if (clasificados.isEmpty()) {
-            Log.e("Adapter", "Lista vacía después de actualizar");
-        }
         notifyDataSetChanged();
     }
 

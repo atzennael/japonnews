@@ -50,13 +50,12 @@ public class mispostulaciones extends AppCompatActivity {
                     Log.e("Firestore", "Error al eliminar postulación", e);
                 });
     }
-
-
     private void cargarMisPostulaciones() {
         String userId = auth.getCurrentUser().getUid();
 
         db.collection("postulaciones")
                 .whereEqualTo("id_usuario", userId)
+                .orderBy("fecha_postulacion")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

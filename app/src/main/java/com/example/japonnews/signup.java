@@ -48,11 +48,11 @@ public class signup extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        editTextNombre = findViewById(R.id.editTextText4);
+        editTextNombre = findViewById(R.id.editTextText);
         editTextIdentificacion = findViewById(R.id.editTextNumber);
         editTextEmail = findViewById(R.id.editTextTextEmailAddress);
         editTextPassword = findViewById(R.id.editTextContrasena);
-        editTextNumero=findViewById(R.id.editTextNumber);
+        editTextNumero=findViewById(R.id.editTextNumero);
         btnCrearCuenta = findViewById(R.id.login3);
         imgProfile = findViewById(R.id.imageView2);
         btnCargarImg = findViewById(R.id.cargarImg);
@@ -61,8 +61,6 @@ public class signup extends AppCompatActivity {
             Log.d("SignupActivity", "Botón de cargar imagen presionado");
             cargarImagen();
         });
-
-
         btnCrearCuenta.setOnClickListener(v -> registrarUsuario());
 
         TextView textview = findViewById(R.id.textView7);
@@ -106,8 +104,10 @@ public class signup extends AppCompatActivity {
                         FirebaseUser user = auth.getCurrentUser();
                         if (user != null) {
                             String userId = user.getUid();
+                            Log.d("SignupActivity", "Usuario creado con UID: " + userId);
 
                             Map<String, Object> userData = new HashMap<>();
+                            userData.put("fcmToken", null);
                             userData.put("uid", userId);
                             userData.put("nombre", nombre);
                             userData.put("id", id);
@@ -117,31 +117,35 @@ public class signup extends AppCompatActivity {
                             userData.put("fotoPerfil", null);
 
                             FirebaseFirestore.getInstance().collection("usuarios").document(userId)
-                            .set(userData)
+                                    .set(userData)
                                     .addOnSuccessListener(aVoid -> {
+                                        Log.d("SignupActivity", "Datos de usuario guardados en Firestore");
                                         guardarImg(userId);
                                         Toast.makeText(this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(signup.this, LoginActivity.class));
                                         finish();
-                                            })
-                                    .addOnFailureListener(e -> Log.e("SignupActivity", "Error al guardar usuario", e));
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e("SignupActivity", "Error al guardar usuario en Firestore: ", e);
+                                    });
                         }
-
                     } else {
-                        String errorMsg = task.getException() != null ? task.getException().getMessage() : "Error desconocido";
-                        Log.e("SignupActivity", "Error en el registro: " + errorMsg);
-                        Toast.makeText(signup.this, "Error al guardar usuario", Toast.LENGTH_SHORT).show();
+                        if (task.getException() != null) {
+                            Log.e("SignupActivity", "Error en el registro: " + task.getException().getMessage());
+                        } else {
+                            Log.e("SignupActivity", "Error desconocido en el registro");
                         }
+                        Toast.makeText(signup.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
+                    }
                 });
-    }
 
+    }
     private void cargarImagen(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);

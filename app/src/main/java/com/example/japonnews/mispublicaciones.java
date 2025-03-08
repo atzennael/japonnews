@@ -42,6 +42,7 @@ public class mispublicaciones extends AppCompatActivity {
 
         db.collection("clasificados")
                 .whereEqualTo("userId", usuarioId)
+                .orderBy("fecha")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -68,6 +69,7 @@ public class mispublicaciones extends AppCompatActivity {
 
         db.collection("clasificados")
                 .whereEqualTo("userId", usuarioId)
+                .orderBy("fecha")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

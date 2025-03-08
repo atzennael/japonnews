@@ -99,6 +99,7 @@ public class SecondFragment extends Fragment {
 
         private void cargarData() {
             db.collection("clasificados")
+                    .orderBy("fecha")
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
