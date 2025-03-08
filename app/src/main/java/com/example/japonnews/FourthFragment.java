@@ -3,6 +3,7 @@ package com.example.japonnews;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.japonnews.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +35,7 @@ public class FourthFragment extends Fragment {
     private FirebaseFirestore db;
     private ImageView imgProfile;
     private Uri imgUri;
-    private Button btnCargarImg;
+    private Button btnCargarImg, btnDeleteAcc;
     private Button btnActualizar, buttonMisPostulaciones, buttonMisPublicaciones, btnLogout;
     private static final int PICK_IMAGE_REQUEST =1;
 
@@ -51,35 +51,55 @@ public class FourthFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fourth, container, false);
         auth = FirebaseAuth.getInstance();
-        db =FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        imgProfile= view.findViewById(R.id.imageView4);
-        btnCargarImg=view.findViewById(R.id.button3);
-        btnActualizar=view.findViewById(R.id.button4);
-        editTextNombre=view.findViewById(R.id.editTextText4);
-        editTextIdentificacion=view.findViewById(R.id.editTextText5);
-        editTextNumero=view.findViewById(R.id.editTextNumber2);
-        editTextPassword=view.findViewById(R.id.editTextContrasena);
-        buttonMisPostulaciones=view.findViewById(R.id.buttonMisPostulaciones);
-        buttonMisPublicaciones=view.findViewById(R.id.buttonMisPublicaciones);
-        btnLogout=view.findViewById(R.id.buttonLogout);
+        imgProfile = view.findViewById(R.id.imageView4);
+        btnCargarImg = view.findViewById(R.id.button3);
+        btnActualizar = view.findViewById(R.id.button4);
+        editTextNombre = view.findViewById(R.id.editTextText4);
+        editTextIdentificacion = view.findViewById(R.id.editTextText5);
+        editTextNumero = view.findViewById(R.id.editTextNumber2);
+        editTextPassword = view.findViewById(R.id.editTextContrasena);
+        buttonMisPostulaciones = view.findViewById(R.id.buttonMisPostulaciones);
+        buttonMisPublicaciones = view.findViewById(R.id.buttonMisPublicaciones);
+        btnLogout = view.findViewById(R.id.buttonLogout);
+        btnDeleteAcc = view.findViewById(R.id.buttonDeleteAcc);
         cargarData();
 
-btnCargarImg.setOnClickListener(v -> cargarImgPerfil());
+        btnCargarImg.setOnClickListener(v -> cargarImgPerfil());
 
-btnActualizar.setOnClickListener(v -> actualizarData());
+        btnActualizar.setOnClickListener(v -> actualizarData());
 
-buttonMisPublicaciones.setOnClickListener(v -> {
-    Intent intent = new Intent(getActivity(), mispublicaciones.class);
-    startActivity(intent);
-});
+        buttonMisPublicaciones.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), mispublicaciones.class);
+            startActivity(intent);
+        });
 
-buttonMisPostulaciones.setOnClickListener(v -> {
-    Intent intent = new Intent(getActivity(), mispostulaciones.class);
-    startActivity(intent);
-});
+        buttonMisPostulaciones.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), mispostulaciones.class);
+            startActivity(intent);
+        });
 
-btnLogout.setOnClickListener(v -> logout());
+        btnLogout.setOnClickListener(v -> logout());
+
+        btnDeleteAcc.setOnClickListener(v -> {
+            String userId = auth.getCurrentUser().getUid();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle("Confirmar eliminación");
+            builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta?");
+            Log.d("BorrarCuenta", "Se presionó BorrarCuenta");
+
+            builder.setPositiveButton("Sí", (dialog, which) -> {
+                deleteAcc(userId);
+                Log.d("BorrarCuenta", "Se llamó deleteAcc");
+            });
+            builder.setNegativeButton("No", (dialog, which) -> {
+                dialog.dismiss();
+        });
+        builder.show();
+    });
+
         return view;
     }
 
@@ -172,5 +192,29 @@ btnLogout.setOnClickListener(v -> logout());
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    private void deleteAcc(String userId){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("usuarios").document(userId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    auth.getCurrentUser().delete()
+                            .addOnSuccessListener(aVoid2 -> {
+                                Toast.makeText(getContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }).addOnFailureListener(e -> {
+                                Toast.makeText(requireContext(), "Error al eliminar cuenta", Toast.LENGTH_SHORT).show();
+                                Log.e("FirebaseAuth", "Error eliminando cuenta de Authentication", e);
+                            });
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Error al eliminar", Toast.LENGTH_SHORT).show();
+                    Log.e("Firestore", "Error eliminando publicación", e);
+                });
     }
 }

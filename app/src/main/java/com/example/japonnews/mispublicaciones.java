@@ -2,11 +2,14 @@ package com.example.japonnews;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
@@ -15,8 +18,8 @@ import java.util.List;
 
 public class mispublicaciones extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private clasifAdapter adapter;
-    private List<clasif_modelo> listaPublicaciones;
+    private mispublis_adapter adapter;
+    private List<publis_modelo> listaP;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
@@ -27,8 +30,8 @@ public class mispublicaciones extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewMisPublicaciones);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listaPublicaciones = new ArrayList<>();
-        adapter = new clasifAdapter(this, listaPublicaciones);
+        listaP = new ArrayList<>();
+        adapter = new mispublis_adapter(this, listaP);
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
@@ -38,69 +41,34 @@ public class mispublicaciones extends AppCompatActivity {
     }
 
     private void cargarMisPublicaciones() {
-        String usuarioId = auth.getCurrentUser().getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
 
         db.collection("clasificados")
-                .whereEqualTo("userId", usuarioId)
-                .orderBy("fecha")
+                .whereEqualTo("userId", user.getUid())
+                .orderBy("fecha")// Filtrar solo las publicaciones del usuario autenticado
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        listaPublicaciones.clear();
-                        HashSet<String> idsUnicos = new HashSet<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String clasifId = document.getString("clasifId");
-
-                            if (clasifId != null && !clasifId.isEmpty()) {
-                                obtenerDetalles(clasifId);
-                            } else {
-                                Log.e("Firestore", "Error: id_publicacion es nulo o vacío");
-                            }
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<publis_modelo> lista = new ArrayList<>();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        publis_modelo p = doc.toObject(publis_modelo.class);
+                        if (p != null) {
+                            p.setClasifId(doc.getId());  // Guardar el ID de Firestore
+                            lista.add(p);
+                            Log.d("Firestore", "Publicación cargada: " + p.getTitulo());
+                        } else {
+                            Log.e("Firestore", "Documento con datos nulos: " + doc.getId());
                         }
-                    } else {
-                        Log.e("Firestore", "Error al obtener postulaciones", task.getException());
-                        Toast.makeText(this, "Error al cargar postulaciones", Toast.LENGTH_SHORT).show();
                     }
-                });
-    }
+                    adapter.notifyDataSetChanged();
 
-    private void obtenerDetalles(String clasifId){
-        String usuarioId = auth.getCurrentUser().getUid();
 
-        db.collection("clasificados")
-                .whereEqualTo("userId", usuarioId)
-                .orderBy("fecha")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        listaPublicaciones.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String titulo = document.getString("titulo");
-                            String detalle = document.getString("detalle");
-                            String tipo = document.getString("tipoPublicacion");
-                            String imagen = document.getString("imagen");
-
-                            listaPublicaciones.add(new clasif_modelo(titulo, detalle, imagen, tipo));
-                            adapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        Log.e("Firestore", "Error al obtener publicaciones", task.getException());
-                        Toast.makeText(this, "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
+                    try {
+                        recyclerView.setAdapter(new mispublis_adapter(getApplicationContext(), lista));
+                    } catch (Exception e) {
+                        Log.e("RecyclerView", "Error al cargar adaptador", e);
                     }
-                });
-    }
-
-    private void eliminarPublicacion(String idPublicacion) {
-        db.collection("publicaciones")
-                .document(idPublicacion)
-                .delete()
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Publicación eliminada", Toast.LENGTH_SHORT).show();
-                    cargarMisPublicaciones(); // Recargar la lista
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show();
-                    Log.e("Firestore", "Error al eliminar publicación", e);
-                });
+                .addOnFailureListener(e -> Log.e("Firestore", "Error al cargar publicaciones", e));
     }
 }

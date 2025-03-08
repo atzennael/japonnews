@@ -47,7 +47,8 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        clasif_modelo clasificado = clasificados.get(position);
+
+            clasif_modelo clasificado = clasificados.get(position);
         holder.bind(clasificado, context);
 
         holder.titulo.setText(clasificado.getTitulo());
@@ -85,7 +86,6 @@ public class clasifAdapter extends RecyclerView.Adapter<clasifAdapter.ViewHolder
             titulo = itemView.findViewById(R.id.tvTitulo);
             detalle = itemView.findViewById(R.id.tvDetalle);
             imagen = itemView.findViewById(R.id.ivImagen);
-
         }
 
         public void bind(clasif_modelo clasificado, Context context) {

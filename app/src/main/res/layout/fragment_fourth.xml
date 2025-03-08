@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cambiar Foto de Perfil"
-            android:backgroundTint="@color/purple_app"
+            android:background="@drawable/rounder_purple"
             android:textColor="@color/yellow_app"
             android:layout_marginTop="20dp"
             android:layout_gravity="center" />
@@ -112,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Actualizar Datos"
-            android:backgroundTint="@color/yellow_app"
+            android:background="@drawable/rounded_yellow"
             android:textColor="@color/purple_app"
             android:layout_marginTop="20dp"
             android:layout_gravity="center" />
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/purple_app"
+            android:background="@drawable/rounder_purple"
             android:text="Ver Mis Postulaciones"
             android:textColor="@color/yellow_app" />
 
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/purple_app"
+            android:background="@drawable/rounder_purple"
             android:text="Ver Mis Publicaciones"
             android:textColor="@color/yellow_app" />
 
@@ -143,10 +143,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/yellow_app"
+            android:background="@drawable/rounded_yellow"
             android:text="Cerrar Sesión"
-            android:textColor="@color/purple_app" />
+            android:textColor="@color/purple_app"/>
 
+        <Button
+            android:id="@+id/buttonDeleteAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_yellow"
+            android:text="Eliminar Cuenta"
+            android:textColor="@color/purple_app"/>
     </LinearLayout>
 </ScrollView>
 

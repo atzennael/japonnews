@@ -1,45 +1,48 @@
 package com.example.japonnews;
 
+
+import java.util.List;
+
 public class publis_modelo {
-    private String tituloP, detalleP, userIdP, clasifIdP;
+    private String titulo;
+    private String detalle;
+    private String userId;
+    private String clasifId;
+    private String fecha;
+    private String tipoPublicacion;
+    private String imagen;
 
-    public publis_modelo(){
-
+    public publis_modelo() {
+        // Constructor vacío requerido por Firestore
     }
 
-    public publis_modelo(String tituloP, String detalleP, String userIdP, String clasifIdP){
-        this.tituloP=tituloP;
-        this.detalleP=detalleP;
-        this.userIdP=userIdP;
-        this.clasifIdP=clasifIdP;
+    public publis_modelo(String titulo, String detalle, String userId, String clasifId, String fecha,
+                         String tipoPublicacion, String imagen) {
+        this.titulo = titulo;
+        this.detalle = detalle;
+        this.userId = userId;
+        this.clasifId = clasifId;
+        this.tipoPublicacion = tipoPublicacion;
+        this.imagen = imagen;
     }
 
-    public String getTituloP(){return tituloP; }
 
-    public void setTituloP(String tituloP) {
-        this.tituloP = tituloP;
-    }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public String getDetalleP() {
-        return detalleP;
-    }
+    public String getDetalle() { return detalle; }
+    public void setDetalle(String detalle) { this.detalle = detalle; }
 
-    public void setDetalleP(String detalleP) {
-        this.detalleP = detalleP;
-    }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
-    public String getClasifIdP() {
-        return clasifIdP;
-    }
-    public void setClasifIdP(String clasifIdP) {
-        this.clasifIdP = clasifIdP;
-    }
+    public String getClasifId() { return clasifId; }
+    public void setClasifId(String clasifId) { this.clasifId = clasifId; }
 
-    public String userIdP() {
-        return userIdP;
-    }
+    public String getImagen() { return imagen; }
+    public void setImagen(String imagen) { this.imagen = imagen; }
 
-    public void userIdP(String userIdP) {
-        this.userIdP = userIdP;
+    public String getTipoPublicacion() { return tipoPublicacion;
     }
+    public void setTipoPublicacion(String tipoPublicacion) {this.tipoPublicacion=tipoPublicacion;}
 }

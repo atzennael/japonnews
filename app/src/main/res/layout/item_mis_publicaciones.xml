@@ -54,6 +54,17 @@
                 android:text="Detalle"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"/>
+
+            <Button
+                android:id="@+id/btnEliminar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/purple_app"
+                android:text="Eliminar"
+                android:textColor="@color/yellow_app"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </LinearLayout>
 
