@@ -51,7 +51,7 @@ public class home1 extends AppCompatActivity {
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-        = new BottomNavigationView.OnNavigationItemSelectedListener() {
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             int id = item.getItemId();
@@ -70,6 +70,7 @@ public class home1 extends AppCompatActivity {
                 return true;
             } else if (id== R.id.nav_notification){
                 loadFragment(fifthFragment);
+                return true;
             }
 
             return false;
@@ -90,5 +91,13 @@ public class home1 extends AppCompatActivity {
         transaction.commit();
     }
 
+    private void guardarPlayerIdEnFirestore(String playerId) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        db.collection("users").document(userId)
+                .update("playerId", playerId)
+                .addOnSuccessListener(aVoid -> Log.d("OneSignal", "Player ID guardado en Firestore"))
+                .addOnFailureListener(e -> Log.e("OneSignal", "Error guardando Player ID", e));
+    }
 }

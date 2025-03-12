@@ -70,10 +70,10 @@ public class new_job extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode==PICK_IMAGE_REQUEST&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null) {
-                imageUri = data.getData();
-                imageView.setImageURI(imageUri);
-            }
+        if (requestCode==PICK_IMAGE_REQUEST&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null) {
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
     }
     private void imgClasif(){
         String titulo= editTextTitulo.getText().toString().trim();
@@ -93,50 +93,50 @@ public class new_job extends AppCompatActivity {
         String clasifId=db.collection("clasificados").document().getId();
         StorageReference storageReference = storage.getReference().child("clasificados/"+userId+
                 "/"+clasifId+".jpg");
-                storageReference.putFile(imageUri)
-                        .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl()
-                                .addOnSuccessListener(uri -> {
-                                    guardarClasif(clasifId, userId, titulo, detalle, uri.toString(), tipoPublicacion, fecha);
-                                }))
-                        .addOnFailureListener(e -> {
-                            Log.e("Error clasif", e.getMessage());
-                            Toast.makeText(this, "Error al crear el clasificado",Toast.LENGTH_SHORT).show();
-                        });
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+                            guardarClasif(clasifId, userId, titulo, detalle, uri.toString(), tipoPublicacion, fecha);
+                        }))
+                .addOnFailureListener(e -> {
+                    Log.e("Error clasif", e.getMessage());
+                    Toast.makeText(this, "Error al crear el clasificado",Toast.LENGTH_SHORT).show();
+                });
     }
     private void guardarClasif(String clasifId, String userId, String titulo, String detalle, String imageUri,
                                String tipoPublicacion, Timestamp fecha){
-Map<String, Object> clasificado = new HashMap<>();
-clasificado.put("clasifId", clasifId);
-clasificado.put("userId", userId);
-clasificado.put("titulo", titulo);
-clasificado.put("detalle", detalle);
-clasificado.put("imagen", imageUri);
-clasificado.put("tipoPublicacion", tipoPublicacion);
-clasificado.put("fecha", fecha);
+        Map<String, Object> clasificado = new HashMap<>();
+        clasificado.put("clasifId", clasifId);
+        clasificado.put("userId", userId);
+        clasificado.put("titulo", titulo);
+        clasificado.put("detalle", detalle);
+        clasificado.put("imagen", imageUri);
+        clasificado.put("tipoPublicacion", tipoPublicacion);
+        clasificado.put("fecha", fecha);
 
-db.collection("clasificados").document(clasifId)
-        .set(clasificado)
-        .addOnSuccessListener(aVoid -> {
-            Toast.makeText(this, "Tu publicación fue creada con éxito", Toast.LENGTH_SHORT).show();
+        db.collection("clasificados").document(clasifId)
+                .set(clasificado)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Tu publicación fue creada con éxito", Toast.LENGTH_SHORT).show();
 
-            Log.d("Clasificado", "Título: " + titulo);
-            Log.d("Clasificado", "Detalle: " + detalle);
-            Log.d("Clasificado", "Imagen URL: " + imageUri);
+                    Log.d("Clasificado", "Título: " + titulo);
+                    Log.d("Clasificado", "Detalle: " + detalle);
+                    Log.d("Clasificado", "Imagen URL: " + imageUri);
 
-            Intent intent = new Intent(this, clasificado.class);
-            intent.putExtra("titulo", titulo);
-            intent.putExtra("detalle", detalle);
-            intent.putExtra("imagen", imageUri);
-            intent.putExtra("tipoPublicacion", tipoPublicacion);
-            intent.putExtra("fecha", fecha);
-            startActivity(intent);
-            guardarMisPublicaciones();
-            finish();
-        })
-        .addOnFailureListener(e -> {
-            Log.e("Error clasif", e.getMessage());
-            Toast.makeText(this, "No se pudo crear tu publicación. Intenta nuevamente", Toast.LENGTH_SHORT).show();
-        });
+                    Intent intent = new Intent(this, clasificado.class);
+                    intent.putExtra("titulo", titulo);
+                    intent.putExtra("detalle", detalle);
+                    intent.putExtra("imagen", imageUri);
+                    intent.putExtra("tipoPublicacion", tipoPublicacion);
+                    intent.putExtra("fecha", fecha);
+                    startActivity(intent);
+                    guardarMisPublicaciones();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Error clasif", e.getMessage());
+                    Toast.makeText(this, "No se pudo crear tu publicación. Intenta nuevamente", Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void guardarMisPublicaciones(){

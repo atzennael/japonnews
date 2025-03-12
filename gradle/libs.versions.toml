@@ -9,6 +9,7 @@ firebaseFirestore = "25.1.2"
 firebaseMessaging = "24.1.0"
 firebaseStorageVersion = "20.2.1"
 glide = "4.13.1"
+googleAuthLibraryOauth2Http = "1.19.0"
 googleServices = "4.4.2"
 gson = "2.10.1"
 kotlin = "2.0.0"
@@ -29,6 +30,7 @@ lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 activity = "1.10.0"
 androidxViewPager2 = "1.0.0"
+onesignal = "5.1.4"
 picasso = "2.8"
 playServicesAuth = "21.3.0"
 volley = "1.2.1"
@@ -49,6 +51,7 @@ firebase-firestore = { module = "com.google.firebase:firebase-firestore", versio
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 firebase-storage-v2021 = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorageVersion" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+google-auth-library-oauth2-http = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "googleAuthLibraryOauth2Http" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -74,6 +77,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "androidxViewPager2" }
+onesignal = { module = "com.onesignal:OneSignal", version.ref = "onesignal" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }

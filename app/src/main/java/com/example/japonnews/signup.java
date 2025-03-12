@@ -81,9 +81,9 @@ public class signup extends AppCompatActivity {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String id = editTextIdentificacion.getText().toString().trim();
-        String numero = editTextNumero.getText().toString().trim();
+        String telefono = editTextNumero.getText().toString().trim();
 
-        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty() || id.isEmpty() || numero.isEmpty()) {
+        if (nombre.isEmpty() || email.isEmpty() || password.isEmpty() || id.isEmpty() || telefono.isEmpty()) {
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -111,7 +111,7 @@ public class signup extends AppCompatActivity {
                             userData.put("uid", userId);
                             userData.put("nombre", nombre);
                             userData.put("id", id);
-                            userData.put("numero", numero);
+                            userData.put("telefono", telefono);
                             userData.put("email", email);
                             userData.put("password", password);
                             userData.put("fotoPerfil", null);

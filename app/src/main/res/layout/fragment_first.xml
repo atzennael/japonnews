@@ -13,6 +13,35 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/purple_app"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/tvHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¡Bienvenido a Japón News!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/yellow_app"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -45,7 +74,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerOfertaLaboral"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginBottom="16dp"
                     android:overScrollMode="never"
                     android:scrollbars="none"
@@ -65,7 +94,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerPasantia"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginBottom="16dp"
                     android:overScrollMode="never"
                     android:scrollbars="none"
@@ -85,7 +114,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerProyecto"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginBottom="16dp"
                     android:overScrollMode="never"
                     android:scrollbars="none"
@@ -105,7 +134,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerPracticaPreprofesional"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginBottom="16dp"
                     android:overScrollMode="never"
                     android:scrollbars="none"
@@ -114,16 +143,14 @@
 
                 <!-- Botón "Ver Más Publicaciones" -->
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btnCargasMas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ver Más Publicaciones"
                     android:layout_gravity="center"
                     android:padding="12dp"
-                    android:backgroundTint="@color/yellow_app"
-                    android:textColor="@color/purple_app"
+                    android:background="@drawable/rounded_yellow"
                     android:elevation="4dp"
-                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="20dp"/>
 
             </LinearLayout>

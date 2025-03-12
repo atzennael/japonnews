@@ -7,97 +7,125 @@
     android:background="@color/white"
     tools:context=".postulation">
 
-    <!-- Contenedor principal -->
-    <LinearLayout
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal">
+        android:layout_height="70dp"
+        android:background="@color/purple_app"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Imagen de la oferta -->
-        <ImageView
-            android:id="@+id/imageViewOferta"
-            android:paddingBottom="10dp"
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aquí va el titulo"
+        android:textAlignment="center"
+        android:textColor="@color/yellow_app"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Contenedor principal -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/japonnews_logo" />
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- Título de la oferta -->
+            <ImageView
+                android:id="@+id/imageViewOferta"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="100dp"
+                android:paddingBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/japonnews_logo" />
+            <!-- Descripción de la oferta -->
+            <TextView
+                android:id="@+id/textViewDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:text="Descripción"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <!-- Descripción de la oferta -->
-        <TextView
-            android:id="@+id/textViewTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="16dp"
-            android:text="Título de la Oferta"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <!-- Separador -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="24dp"
+                android:background="@android:color/darker_gray" />
 
-        <TextView
-            android:id="@+id/textViewDetalle"
-            android:layout_width="match_parent"
-            android:paddingTop="25dp"
-            android:layout_height="wrap_content"
-            android:text="Descripción"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:paddingBottom="25dp" />
+            <!-- Sección de datos del usuario -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Tus datos para la postulación:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <!-- Separador -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginBottom="24dp"/>
+            <TextView
+                android:id="@+id/textViewNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Nombre"
+                android:textSize="14sp" />
 
-        <!-- Sección de datos del usuario -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tus datos para la postulación:"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp"/>
+            <TextView
+                android:id="@+id/textViewCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Correo"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textViewNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nombre"
-            android:paddingBottom="8dp"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textViewTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="30dp"
+                android:text="Teléfono"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textViewCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:text="Correo"
-            android:textSize="14sp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/mensaje"
+                android:textSize="14sp"
+                android:hint="Escribe un mensaje para tu postulación"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="107dp"
+                android:ems="10"
+                android:inputType="text" />
 
-        <TextView
-            android:id="@+id/textViewTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Teléfono"
-            android:paddingBottom="30dp"
-            android:textSize="14sp" />
+            <Button
+                android:id="@+id/buttonConfirmar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/yellow_app"
+                android:text="Confirmar Postulación"
+                android:textColor="@color/purple_app" />
 
-        <!-- Botón de confirmación -->
-        <Button
-            android:id="@+id/buttonConfirmar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/yellow_app"
-            android:text="Confirmar Postulación"
-            android:textColor="@color/purple_app" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,29 +8,39 @@
     tools:context=".clasificado">
 
     <!-- Título de la publicación -->
-    <TextView
-        android:id="@+id/textViewTitulo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="{Aquí va el título}"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:gravity="center"
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/purple_app"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="{Aquí va el título}"
+        android:textAlignment="center"
+        android:textColor="@color/yellow_app"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Imagen de la publicación -->
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="300dp"
         android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitulo"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <!-- Botones de acción -->
@@ -38,27 +48,27 @@
         android:id="@+id/button5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Guardar"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/yellow_app"
+        android:text="Guardar"
         android:textColor="@color/purple_app"
-        app:layout_constraintTop_toBottomOf="@id/imageView5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button6"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView5" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Postularme Ya"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/yellow_app"
+        android:text="Postularme Ya"
         android:textColor="@color/purple_app"
-        app:layout_constraintTop_toBottomOf="@id/imageView5"
-        app:layout_constraintStart_toEndOf="@id/button5"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintStart_toEndOf="@id/button5"
+        app:layout_constraintTop_toBottomOf="@id/imageView5" />
 
     <!-- Sección de Detalles -->
     <TextView
@@ -77,13 +87,13 @@
         android:id="@+id/textViewDetalle2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
         android:text="Tipo de Vacante"
         android:textSize="18sp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/textViewDetalle"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewDetalle" />
 
     <!-- Tipo de Vacante -->
     <TextView

@@ -6,6 +6,10 @@ plugins {
 apply(plugin = "com.google.gms.google-services")
 
 android {
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("mozilla/public-suffix-list.txt")
+    }
     namespace = "com.example.japonnews"
     compileSdk = 35
 
@@ -86,4 +90,8 @@ dependencies {
     implementation (libs.gson)
     annotationProcessor(libs.compiler)
     implementation(libs.firebase.messaging)
+    implementation(libs.google.auth.library.oauth2.http)
+    implementation("com.amazonaws:aws-android-sdk-core:2.79.0")
+    implementation("com.amazonaws:aws-android-sdk-sns:2.79.0")
+    implementation ("com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.79.0")
 }

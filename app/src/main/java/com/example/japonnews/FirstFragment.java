@@ -1,21 +1,27 @@
 package com.example.japonnews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,17 +34,33 @@ public class FirstFragment extends Fragment {
 
     private RecyclerView recyclerOfertaLaboral, recyclerPasantia, recyclerProyecto, recyclerPracticaPreprofesional;
     private FirebaseFirestore db;
+    private Button btnCargarMas;
     private clasifAdapter ofertaLaboralAdapter, pasantiaAdapter, proyectoAdapter, practicaPreprofesionalAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_first, container, false);
+
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("FCM", "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+                    String token = task.getResult();
+                    Log.d("FCM", "Token: " + token);
+                    guardarToken(token);
+                });
+
 
         // Configuración del ViewPager
         viewPager = view.findViewById(R.id.viewPager);
@@ -51,22 +73,19 @@ public class FirstFragment extends Fragment {
         viewPager.setAdapter(adapter);
         autoScroll(viewPager, images.size());
 
-        // Configuración de RecyclerViews para cada categoría
         db = FirebaseFirestore.getInstance();
 
-        // Inicializamos los RecyclerViews
         recyclerOfertaLaboral = view.findViewById(R.id.recyclerOfertaLaboral);
         recyclerPasantia = view.findViewById(R.id.recyclerPasantia);
         recyclerProyecto = view.findViewById(R.id.recyclerProyecto);
         recyclerPracticaPreprofesional = view.findViewById(R.id.recyclerPracticaPreprofesional);
+        btnCargarMas=view.findViewById(R.id.btnCargasMas);
 
-        // Inicializamos los adaptadores para cada categoría
         ofertaLaboralAdapter = new clasifAdapter(requireContext(), new ArrayList<>());
         pasantiaAdapter = new clasifAdapter(requireContext(), new ArrayList<>());
         proyectoAdapter = new clasifAdapter(requireContext(), new ArrayList<>());
         practicaPreprofesionalAdapter = new clasifAdapter(requireContext(), new ArrayList<>());
 
-        // Configuramos el LayoutManager y el Adapter para cada RecyclerView
         recyclerOfertaLaboral.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
         recyclerPasantia.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
         recyclerProyecto.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
@@ -77,8 +96,16 @@ public class FirstFragment extends Fragment {
         recyclerProyecto.setAdapter(proyectoAdapter);
         recyclerPracticaPreprofesional.setAdapter(practicaPreprofesionalAdapter);
 
-        // Cargamos los clasificados desde Firebase
         cargarClasificados();
+
+        btnCargarMas.setOnClickListener(v -> {
+            Fragment secondFragment = new SecondFragment();
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, secondFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
     }
 
     private void cargarClasificados() {
@@ -156,5 +183,13 @@ public class FirstFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         handler.removeCallbacks(runnable);
+    }
+
+    private void guardarToken(String token) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore.getInstance().collection("usuarios").document(userId)
+                .update("fcmToken", token)
+                .addOnSuccessListener(aVoid -> Log.d("FCM", "Token guardado en Firestore"))
+                .addOnFailureListener(e -> Log.e("FCM", "Error al guardar token", e));
     }
 }
