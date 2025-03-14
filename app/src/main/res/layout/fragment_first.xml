@@ -45,11 +45,12 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="270dp"
             android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="16dp"
-            android:clipToPadding="false"
-            android:clipChildren="false" />
+            android:clipChildren="false"
+            android:clipToPadding="false" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -141,7 +142,6 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_clasif" />
 
-                <!-- Botón "Ver Más Publicaciones" -->
                 <Button
                     android:id="@+id/btnCargasMas"
                     android:layout_width="wrap_content"

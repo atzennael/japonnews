@@ -23,7 +23,7 @@
         android:text="Aquí va el titulo"
         android:textAlignment="center"
         android:textColor="@color/yellow_app"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Contenedor principal -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,9 +51,9 @@
                 android:layout_height="300dp"
                 android:layout_marginTop="100dp"
                 android:paddingBottom="10dp"
-                android:scaleType="centerCrop"
+                android:scaleType="center"
                 android:src="@drawable/japonnews_logo" />
-            <!-- Descripción de la oferta -->
+
             <TextView
                 android:id="@+id/textViewDetalle"
                 android:layout_width="match_parent"
@@ -66,7 +65,6 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <!-- Separador -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -78,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
+                android:textColor="@color/black"
                 android:text="Tus datos para la postulación:"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -87,11 +86,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
+                android:textColor="@color/dark_gray"
                 android:text="Nombre"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textViewCorreo"
+                android:textColor="@color/dark_gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
@@ -102,6 +103,7 @@
                 android:id="@+id/textViewTelefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray"
                 android:paddingBottom="30dp"
                 android:text="Teléfono"
                 android:textSize="14sp" />
@@ -111,6 +113,7 @@
                 android:textSize="14sp"
                 android:hint="Escribe un mensaje para tu postulación"
                 android:textColor="@color/black"
+                android:textColorHint="@color/dark_gray"
                 android:layout_width="match_parent"
                 android:layout_height="107dp"
                 android:ems="10"

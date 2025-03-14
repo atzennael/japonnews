@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".clasificado">
 
-    <!-- Título de la publicación -->
+    <!-- Encabezado -->
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Imagen de la publicación -->
+    <!-- Imagen -->
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/textViewTitulo"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <!-- Botones de acción -->
+    <!-- Botones -->
     <Button
         android:id="@+id/button5"
         android:layout_width="0dp"
@@ -70,13 +70,14 @@
         app:layout_constraintStart_toEndOf="@id/button5"
         app:layout_constraintTop_toBottomOf="@id/imageView5" />
 
-    <!-- Sección de Detalles -->
+    <!-- Detalles -->
     <TextView
         android:id="@+id/textViewDetalle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detalle"
         android:textSize="20sp"
+        android:textColor="@color/dark_gray"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/button5"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,23 +87,24 @@
     <TextView
         android:id="@+id/textViewDetalle2"
         android:layout_width="0dp"
+        android:textColor="@color/dark_gray"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
+        android:textStyle="bold"
         android:text="Tipo de Vacante"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewDetalle" />
 
-    <!-- Tipo de Vacante -->
     <TextView
         android:id="@+id/tvVacante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pasantía"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textColor="@color/dark_gray"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/textViewDetalle2"
         app:layout_constraintStart_toStartOf="parent"

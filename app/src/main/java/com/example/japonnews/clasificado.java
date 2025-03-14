@@ -70,7 +70,6 @@ public class clasificado extends AppCompatActivity {
         });
 
 
-        // Recibir datos del intent
         Intent intent = getIntent();
         if (intent != null) {
             titulo = intent.getStringExtra("titulo");

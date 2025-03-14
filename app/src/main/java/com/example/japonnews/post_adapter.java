@@ -41,14 +41,12 @@ public class post_adapter extends RecyclerView.Adapter<post_adapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNombre, textViewCorreo, textViewTelefono;
-        Button btnEliminarPostulacion;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombre = itemView.findViewById(R.id.textViewNombre);
             textViewCorreo = itemView.findViewById(R.id.textViewCorreo);
             textViewTelefono = itemView.findViewById(R.id.textViewTelefono);
-            btnEliminarPostulacion = itemView.findViewById(R.id.btnEliminarPostulacion);
 
         }
     }

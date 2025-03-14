@@ -18,16 +18,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/japonnews_logo" />
 
-    <!-- Campo de correo -->
+    <!-- Campos del Login -->
 
-    <!-- Campo de contraseña -->
-
-    <!-- Botón de Ingresar -->
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/prompt_email"
+        android:textColorHint="@color/dark_gray"
         android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColor="@color/black"
@@ -36,13 +34,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <!-- Indicador de carga -->
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:hint="Contraseña"
+        android:textColorHint="@color/dark_gray"
         android:inputType="textPassword"
         android:padding="12dp"
         android:textColor="@color/black"
@@ -72,9 +70,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto de opción de ingreso con Outlook -->
-
-    <!-- Botón de Outlook -->
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
@@ -88,7 +83,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loading" />
 
-    <!-- Texto para registrarse -->
     <ImageView
         android:id="@+id/outlook"
         android:layout_width="50dp"
@@ -101,7 +95,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView20"
         app:srcCompat="@drawable/outlook" />
 
-    <!-- Botón de Registro -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

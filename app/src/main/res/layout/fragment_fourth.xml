@@ -7,7 +7,6 @@
     tools:context=".FourthFragment"
     android:paddingBottom="80dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+<!-- Imagen de Foto de Perfil -->
         <ImageView
             android:id="@+id/imageView4"
             android:layout_gravity="center"
@@ -61,10 +60,13 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center" />
 
+        <!-- Texto -->
+
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="Nombre"
             android:textAlignment="textStart"
             android:textSize="14sp"
@@ -82,6 +84,8 @@
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="Identificación"
             android:textAlignment="textStart"
@@ -102,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Celular"
+            android:textColor="@color/black"
             android:textAlignment="textStart"
             android:textSize="14sp"
             android:layout_marginTop="16dp" />
@@ -115,11 +120,11 @@
             android:layout_marginTop="8dp"
             android:padding="8dp" />
 
-        <!-- Añadido TextView y EditText para la contraseña -->
         <TextView
             android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:text="Contraseña"
             android:textAlignment="textStart"
             android:textSize="14sp"
@@ -161,9 +166,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounder_purple"
+            android:background="@drawable/rounded_yellow"
             android:text="Ver Mis Publicaciones"
-            android:textColor="@color/yellow_app" />
+            android:textColor="@color/purple_app" />
 
         <Button
             android:id="@+id/buttonLogout"
@@ -171,9 +176,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_yellow"
+            android:background="@drawable/rounder_purple"
             android:text="Cerrar Sesión"
-            android:textColor="@color/purple_app"/>
+            android:textColor="@color/yellow_app"/>
 
         <Button
             android:id="@+id/buttonDeleteAcc"

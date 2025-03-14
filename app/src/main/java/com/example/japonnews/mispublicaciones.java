@@ -46,7 +46,7 @@ public class mispublicaciones extends AppCompatActivity {
 
         db.collection("clasificados")
                 .whereEqualTo("userId", user.getUid())
-                .orderBy("fecha")// Filtrar solo las publicaciones del usuario autenticado
+                .orderBy("fecha")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<publis_modelo> lista = new ArrayList<>();

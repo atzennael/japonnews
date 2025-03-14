@@ -12,28 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nombre"
+        android:textColor="@color/dark_gray"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/textViewCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark_gray"
         android:text="Correo"/>
 
     <TextView
         android:id="@+id/textViewTelefono"
+        android:textColor="@color/dark_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Teléfono"/>
-
-    <Button
-        android:id="@+id/btnEliminarPostulacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancelar Postulación"
-        android:background="@color/yellow_app"
-        android:textColor="@color/purple_app"
-        android:layout_alignParentEnd="true"
-        android:visibility="gone"/>
 
 </LinearLayout>

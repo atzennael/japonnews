@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FirstFragment extends Fragment {
+
     private ViewPager2 viewPager;
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -49,20 +50,6 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.w("FCM", "Fetching FCM registration token failed", task.getException());
-                        return;
-                    }
-                    String token = task.getResult();
-                    Log.d("FCM", "Token: " + token);
-                    guardarToken(token);
-                });
-
-
-        // Configuración del ViewPager
         viewPager = view.findViewById(R.id.viewPager);
         List<String> images = Arrays.asList(
                 "https://i.pinimg.com/236x/f4/db/8a/f4db8a52c1b887bad46a301afa6b7167.jpg",
@@ -105,9 +92,34 @@ public class FirstFragment extends Fragment {
             transaction.addToBackStack(null);
             transaction.commit();
         });
-
+        obtenerYGuardarTokenFCM();
     }
 
+    private void obtenerYGuardarTokenFCM() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("FirstFragment", "Error obteniendo el token FCM", task.getException());
+                        return;
+                    }
+
+                    // Obtén el token
+                    String token = task.getResult();
+                    Log.d("FirstFragment", "Token FCM: " + token);
+
+                    // Guarda el token en Firestore
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    if (auth.getCurrentUser() != null) {
+                        String userId = auth.getCurrentUser().getUid();
+                        db.collection("usuarios").document(userId)
+                                .update("tokenFCM", token)
+                                .addOnSuccessListener(aVoid -> Log.d("FirstFragment", "Token FCM guardado en Firestore"))
+                                .addOnFailureListener(e -> Log.e("FirstFragment", "Error al guardar el token FCM", e));
+                    } else {
+                        Log.e("FirstFragment", "Usuario no autenticado, no se puede guardar el token FCM");
+                    }
+                });
+    }
     private void cargarClasificados() {
         db.collection("clasificados")
                 .orderBy("fecha", Query.Direction.DESCENDING)
@@ -183,13 +195,5 @@ public class FirstFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         handler.removeCallbacks(runnable);
-    }
-
-    private void guardarToken(String token) {
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseFirestore.getInstance().collection("usuarios").document(userId)
-                .update("fcmToken", token)
-                .addOnSuccessListener(aVoid -> Log.d("FCM", "Token guardado en Firestore"))
-                .addOnFailureListener(e -> Log.e("FCM", "Error al guardar token", e));
     }
 }

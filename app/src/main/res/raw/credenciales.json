@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "japonnews-ad65b",
+  "private_key_id": "f2afda674f6115a68fa61326d8b7ccb5f5984a76",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCnhCDsvmAoIGW0\nqHmEr5C1w+yEMQJFt5dsSbXo+RiNh5AOUwxxi2NqVkO7OBRj1XoG0ZINZedLt2bs\niBU4N8PCNmF/Typ+oOK1BGJAoslTv/C9j3XF1XYWK/uHJIBEO6rh2tlYROneCi0c\ngZbreMzYQIdoDSHQMgacZ9Y3LIglxoJdPNRzSc33XJYtiiKlUhmH975Gtsm3ABh+\nlPf2Ip+B0T62l1AoT6PLFEtquCp+SWMspOyYRAWdh7EMBs7ZzBYPkcLKiDumQXWh\nml5c6IGNyEJi3wT63x0prs19/rdwOXasvPJRNcfL5ikSw14HrbGA9fa+4qNZ0NQ0\nXg7NBxYzAgMBAAECggEAEMu7rWENLRjKecmmnXoo7UCet0ZervTQdugRGDHZl18v\nP3BuP/g02JWbpurhiH0ABiz/Et7TyRCzfiXK0t8sfo2LSwN6BEZHVNUCsO5hd0c4\ncRkwOszDUUfJqWwsfCrrYEfcIPCP7lZg3YnUwvlSuKAHs5QVftV1OjtjDBcn83mB\nOnXmr+baRZ4N66JK/PY+/2P+ZyQwkxsGjI3q/lw29weB1T3BHP9YspRmC9GOFcws\nbvdnfV3vEb8tpfeDUO8I+KY393dqiiTh227hM+pjZ4IzKKAl3uo5e8O6Y3C57ZHK\ntK+AP31EnoKo+2iT2GnZrishrYdEbTN85Nh5/euIGQKBgQDd4XGaxptexGal2/Qx\nrjGpGHwGvEHWCH6lmoi6Wd7OQGuoIdR6X2NaZAFReyA19k8/usnVCz1uRymw9lLU\n5IYn4O1ZJLpvAJWPs40h2C1vIir3jOwNSBZmyoKW+jChZAJBe65Me2gACLn3b1uK\nIQrdhiomBXyD4kHDM6eUdUlj/QKBgQDBRpIbBXytSBBVAEUTtPcQ9gJeFeg+KO48\nZ0hfQpyrnIrqli3/Zx4qjMhiYG8/Kbmc/deRYoFBmdWqzDhPLuFDjcXawhLBt3+Q\nDUSmfr86ZXlsisj9RF7OXvg8UC4HJ2GLqYK1nS0b4jZN14zKPUr4wZyQYIkSKeqx\nxhqb6PXB7wKBgEeIrICy8VqPRWzJyiPOPlJ/A1WEklE38eTgOp6h5NRoLo1JQuCl\nKjn1LfugD5V2MLyiMvoNoqOQK9/SuofKmXn36W2pCrZI4O8wexrjQFqpEGM5Os1Z\nZWeEeK/GP7F4tcV444vi6XfBWHtumnuhBYi//Yy+jhNS+dK+L5QMcDndAoGADZnt\nxkEImRktLQ4rzks559OoLv7TrSwsN8v859dENz949zFCY2raUJw/rcyjh4pkKYwj\nk3OfLQKqaq6cd9YQvDRJ7C8kKsXDEFwerKjWxEFH3j+WDVy2X0eHqJbr5kz7LFzt\neeJpvkCZGblFiyXtFLxrTC2+96xDe+c5ECfAw7kCgYAszu7E6RiGQZ3TfrZkwyf2\njdO/PHxEi7U/1fbmd04HZXVt5v2XyxLH+ZLfvXlICwhqnAb94DsE/81HVCS47Qyj\nzsXU8hHldCgEWMzjIxn6S+8C+eo+UgjBlR9oTbnezQJdQF7K1N743MYSNGKzbtoa\n4x9XzgRSLkvnIo7bG7R8Ag==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fcm-access-token@japonnews-ad65b.iam.gserviceaccount.com",
+  "client_id": "104898782922634631919",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fcm-access-token%40japonnews-ad65b.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

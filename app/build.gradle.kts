@@ -94,4 +94,6 @@ dependencies {
     implementation("com.amazonaws:aws-android-sdk-core:2.79.0")
     implementation("com.amazonaws:aws-android-sdk-sns:2.79.0")
     implementation ("com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.79.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation("com.google.api-client:google-api-client:1.32.1")
 }

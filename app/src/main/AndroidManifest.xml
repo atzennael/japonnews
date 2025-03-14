@@ -50,7 +50,8 @@
             android:exported="false" />
         <activity android:name=".home1"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
         <activity android:name=".signup"
             android:exported="false" />
         <activity android:name=".clasificado"
@@ -62,6 +63,8 @@
         <activity android:name=".mispostulaciones"
             android:exported="true"/>
         <activity android:name=".mispublicaciones"
+            android:exported="true"/>
+        <activity android:name=".post_info"
             android:exported="true"/>
         <activity android:name=".ui.login.LoginActivity"
             android:exported="false"

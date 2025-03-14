@@ -4,19 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="8dp"
     tools:context=".mispostulaciones"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:backgroundTint="@color/white">
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/purple_app"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewMisPostulaciones"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvMisPostulaciones"
@@ -34,17 +36,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMisPostulaciones"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="4dp"
+        android:layout_width="400dp"
+        android:layout_height="648dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
         android:id="@+id/tvSinPostulaciones"

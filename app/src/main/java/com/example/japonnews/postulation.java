@@ -1,5 +1,6 @@
 package com.example.japonnews;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,13 +11,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
+import com.google.auth.oauth2.AccessToken;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.*;
 import okhttp3.*;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import android.content.Context;
+
 
 public class postulation extends AppCompatActivity {
     private TextView textViewTitulo, textViewDetalle, textViewNombre, textViewCorreo, textViewTelefono;
@@ -27,14 +36,13 @@ public class postulation extends AppCompatActivity {
     private EditText mensaje;
     private String titulo, detalle, imagen, userId, clasifId, creadorId;
     private static final String TAG = "Postulación";
-    private static final String FCM_URL = "https://fcm.googleapis.com/v1/projects/TU_PROYECTO/messages:send";
-    private static final String ACCESS_TOKEN = "ya29.a0AeXRPp6wP0vRc2d756vyyu_13ev5JLkZm50Ji_dZiAY8fjpqfST2_iE9a8isvEgGicTRvtNaeqIOmnGyuVWaGPlXkeEO5J3ET_2nYyorwWGCyKpBWDjzKsr8raaDXP0ih9_UE1m2Jvk8p4bIzg3qCT21NSAnD11a54o1P3v3aCgYKAbMSARESFQHGX2Mi3dxJT_furHj-1LjvC7PM6g0175";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postulacion);
 
+        // Inicializar vistas
         textViewTitulo = findViewById(R.id.textViewTitulo);
         textViewDetalle = findViewById(R.id.textViewDetalle);
         textViewNombre = findViewById(R.id.textViewNombre);
@@ -44,6 +52,7 @@ public class postulation extends AppCompatActivity {
         btnConfirmar = findViewById(R.id.buttonConfirmar);
         mensaje = findViewById(R.id.mensaje);
 
+        // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = mAuth.getCurrentUser().getUid();
@@ -75,6 +84,7 @@ public class postulation extends AppCompatActivity {
             }
         });
 
+        // Configurar el botón de confirmar
         btnConfirmar.setOnClickListener(v -> {
             String mensajeTexto = mensaje.getText().toString().trim();
             if (mensajeTexto.isEmpty()) {
@@ -107,6 +117,7 @@ public class postulation extends AppCompatActivity {
                             .addOnSuccessListener(queryDocumentSnapshots -> {
                                 if (!queryDocumentSnapshots.isEmpty()) {
                                     Toast.makeText(this, "Ya te postulaste a esta oferta.", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 } else {
                                     Map<String, Object> data = new HashMap<>();
                                     data.put("id_usuario", userId);
@@ -118,6 +129,7 @@ public class postulation extends AppCompatActivity {
                                             .addOnSuccessListener(documentReference -> {
                                                 Toast.makeText(this, "Te has postulado correctamente", Toast.LENGTH_SHORT).show();
                                                 obtenerTokenFCM(creadorId, mensajeTexto);
+                                                finish();
                                             })
                                             .addOnFailureListener(e -> Log.e(TAG, "Error al guardar postulación", e));
                                 }
@@ -138,7 +150,7 @@ public class postulation extends AppCompatActivity {
 
                     String tokenFCM = documentSnapshot.getString("tokenFCM");
                     if (tokenFCM != null && !tokenFCM.isEmpty()) {
-                        enviarNotificacionFCM(tokenFCM, "Nueva postulación en tu oferta", mensajeTexto);
+                        obtenerAccessToken(tokenFCM, "Nueva postulación en tu oferta", mensajeTexto);
                     } else {
                         Log.e(TAG, "El token FCM es nulo o vacío.");
                     }
@@ -146,7 +158,32 @@ public class postulation extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e(TAG, "Error obteniendo el token FCM del usuario", e));
     }
 
-    private void enviarNotificacionFCM(String tokenFCM, String titulo, String mensaje) {
+    private void obtenerAccessToken(String tokenFCM, String titulo, String mensaje) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                InputStream credentialsStream = getResources().openRawResource(R.raw.credenciales);
+                GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream)
+                        .createScoped(Collections.singleton("https://www.googleapis.com/auth/cloud-platform"));
+
+                credentials.refreshIfExpired();
+                AccessToken token = credentials.getAccessToken();
+                String accessToken = token.getTokenValue();
+
+                // Usa el ACCESS_TOKEN en el hilo principal
+                runOnUiThread(() -> {
+                    enviarNotificacionFCM(tokenFCM, titulo, mensaje, accessToken);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Log.e(TAG, "No se pudo obtener el ACCESS_TOKEN");
+                });
+            }
+        });
+    }
+
+    private void enviarNotificacionFCM(String tokenFCM, String titulo, String mensaje, String accessToken) {
         try {
             OkHttpClient client = new OkHttpClient();
 
@@ -154,9 +191,13 @@ public class postulation extends AppCompatActivity {
             notification.put("title", titulo);
             notification.put("body", mensaje);
 
+            JSONObject data = new JSONObject();
+            data.put("click_action", "OPEN_FIFTH_FRAGMENT");
+
             JSONObject message = new JSONObject();
             message.put("token", tokenFCM);
             message.put("notification", notification);
+            message.put("data", data);
 
             JSONObject requestBody = new JSONObject();
             requestBody.put("message", message);
@@ -167,8 +208,8 @@ public class postulation extends AppCompatActivity {
             );
 
             Request request = new Request.Builder()
-                    .url(FCM_URL)
-                    .addHeader("Authorization", "Bearer " + ACCESS_TOKEN)
+                    .url("https://fcm.googleapis.com/v1/projects/japonnews-ad65b/messages:send")
+                    .addHeader("Authorization", "Bearer " + accessToken)
                     .addHeader("Content-Type", "application/json")
                     .post(body)
                     .build();
@@ -181,7 +222,11 @@ public class postulation extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(TAG, "Notificación enviada con éxito: " + response.body().string());
+                    if (response.isSuccessful()) {
+                        Log.d(TAG, "Notificación enviada con éxito: " + response.body().string());
+                    } else {
+                        Log.e(TAG, "Error al enviar la notificación. Código: " + response.code() + ", Mensaje: " + response.body().string());
+                    }
                 }
             });
 
@@ -190,4 +235,3 @@ public class postulation extends AppCompatActivity {
         }
     }
 }
-

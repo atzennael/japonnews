@@ -1,24 +1,24 @@
 package com.example.japonnews;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class notificacion_adapter extends RecyclerView.Adapter<notificacion_adapter.ViewHolder> {
 
+    private Context context;
     private List<notificacion_modelo> listaNotificaciones;
-    private TextView tvNotificacion, tvFecha;
+    private OnItemClickListener listener;
 
-    public notificacion_adapter(List<notificacion_modelo> listaNotificaciones) {
+    public notificacion_adapter(Context context, List<notificacion_modelo> listaNotificaciones, OnItemClickListener listener) {
+        this.context = context;
         this.listaNotificaciones = listaNotificaciones;
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,11 +31,19 @@ public class notificacion_adapter extends RecyclerView.Adapter<notificacion_adap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         notificacion_modelo notificacion = listaNotificaciones.get(position);
-        holder.tvNotificacion.setText(notificacion.getMensaje());
-        if (notificacion.getFecha() != null) {
-            holder.tvFecha.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm",
-                    Locale.getDefault()).format(notificacion.getFecha().getTimestamp()));
+        if (notificacion != null) {
+            holder.tvNotificacion.setText("Alguien se ha postulado a tu publicación");
+            holder.tvDetalleNotificacion.setText(notificacion.getMensaje());
         }
+
+        holder.itemView.setOnClickListener(v -> listener.onItemClick(notificacion));
+    }
+
+
+    public void actualizarLista(List<notificacion_modelo> nuevasNotificaciones) {
+        listaNotificaciones.clear();
+        listaNotificaciones.addAll(nuevasNotificaciones);
+        notifyDataSetChanged();  // Notifica al RecyclerView que los datos han cambiado
     }
 
     @Override
@@ -44,13 +52,16 @@ public class notificacion_adapter extends RecyclerView.Adapter<notificacion_adap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNotificacion, tvFecha;
+        TextView tvNotificacion, tvDetalleNotificacion;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvNotificacion = itemView.findViewById(R.id.tvNotificacion);
-            tvFecha = itemView.findViewById(R.id.tvDetalleNotificacion);
+            tvNotificacion=itemView.findViewById(R.id.tvNotificacion);
+            tvDetalleNotificacion=itemView.findViewById(R.id.tvDetalleNotificacion);
         }
+    }
+    public interface OnItemClickListener{
+        void onItemClick(notificacion_modelo notificacion);
     }
 }
 

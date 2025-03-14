@@ -88,13 +88,14 @@ public class signup extends AppCompatActivity {
             return;
         }
 
-        if (password.length() < 8) {
-            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
+        if(!email.endsWith("@itsjapon.edu.ec")){
+            Toast.makeText(this, "Solo puedes registrarte con correo institucional", Toast.LENGTH_SHORT)
+                    .show();
             return;
         }
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Ingresa un correo válido", Toast.LENGTH_SHORT).show();
+        if (password.length() < 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
 

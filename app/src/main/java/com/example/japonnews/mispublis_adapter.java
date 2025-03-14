@@ -1,5 +1,6 @@
 package com.example.japonnews;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -71,6 +72,9 @@ public class mispublis_adapter extends RecyclerView.Adapter<mispublis_adapter.Vi
             intent.putExtra("tipoPublicacion", publicacion.getTipoPublicacion());
 
             Log.d("SavedActivity", "Enviando a clasificado: " + publicacion.getTitulo() + ", " + publicacion.getDetalle() + ", " + publicacion.getImagen());
+            if (!(context instanceof Activity)) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
             context.startActivity(intent);
         });
 

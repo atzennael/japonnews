@@ -19,6 +19,8 @@ import com.example.japonnews.signup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -98,35 +100,65 @@ class LoginActivity : AppCompatActivity() {
         val provider = OAuthProvider.newBuilder("microsoft.com")
         provider.addCustomParameter("prompt", "select_account")
 
-        val pendingResultTask = FirebaseAuth.getInstance().pendingAuthResult
-        if (pendingResultTask != null) {
+        val auth = FirebaseAuth.getInstance()
+        val pendingResultTask = auth.pendingAuthResult
 
+        if (pendingResultTask != null) {
             pendingResultTask
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    goToHome()
+                .addOnSuccessListener { authResult ->
+                    val user = authResult.user
+                    if (user != null) {
+                        verificarRegistroUsuario(user)
+                    }
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                     Log.e("AuthError", "Error: ${it.message}")
-                    Log.e("AuthError", "Error: $it")
-
                 }
         } else {
-
-            FirebaseAuth.getInstance()
-                .startActivityForSignInWithProvider(this, provider.build())
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    goToHome()
+            auth.startActivityForSignInWithProvider(this, provider.build())
+                .addOnSuccessListener { authResult ->
+                    val user = authResult.user
+                    if (user != null) {
+                        verificarRegistroUsuario(user)
+                    }
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                     Log.e("AuthError", "Error: ${it.message}")
-                    Log.e("AuthError", "Error: $it")
                 }
         }
     }
+
+    private fun verificarRegistroUsuario(user: FirebaseUser) {
+        val email = user.email
+        val db = FirebaseFirestore.getInstance()
+
+        if (email != null) {
+            db.collection("usuarios").whereEqualTo("email", email).get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        // El usuario ya está registrado
+                        Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                        goToHome()
+                    } else {
+                        // El usuario NO está registrado, lo redirigimos a signup.java
+                        Toast.makeText(this, "Usuario no registrado. Completa tu perfil", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, signup::class.java)
+                        intent.putExtra("email", email) // Enviar email a signup
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error al verificar usuario", Toast.LENGTH_SHORT).show()
+                    Log.e("FirestoreError", "Error al buscar usuario en Firestore: ${it.message}")
+                }
+        } else {
+            Toast.makeText(this, "No se pudo obtener el email del usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
