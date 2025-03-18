@@ -21,7 +21,7 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Últimos Clasificados"
+        android:text="Últimas Ofertas"
         android:textAlignment="center"
         android:textColor="@color/yellow_app"
         android:textSize="16sp"

@@ -53,9 +53,7 @@ public class clasificado extends AppCompatActivity {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                             String clasifId = document.getId();
-
                             Log.d("Firestore", "Enviado clasifId: " + clasifId);
-
                             Intent intentPostulacion = new Intent(clasificado.this, postulation.class);
                             intentPostulacion.putExtra("titulo", titulo);
                             intentPostulacion.putExtra("detalle", detalle);
@@ -68,8 +66,6 @@ public class clasificado extends AppCompatActivity {
                     })
                     .addOnFailureListener(e -> Log.e("Firestore", "Error al obtener clasifId", e));
         });
-
-
         Intent intent = getIntent();
         if (intent != null) {
             titulo = intent.getStringExtra("titulo");
@@ -87,8 +83,6 @@ public class clasificado extends AppCompatActivity {
             textViewTitulo.setText(titulo);
             textViewDetalle.setText(detalle);
             tvVacante.setText(tipoPublicacion);
-
-            // Cargar imagen desde URL con
             if(imagen!=null&&!imagen.isEmpty()) {
                 Glide.with(this)
                         .load(imagen)
@@ -127,14 +121,11 @@ public class clasificado extends AppCompatActivity {
         } else {
             listaSaved = new ArrayList<>();
         }
-
         listaSaved.removeIf(item -> item==null ||
                 item.getTitulo() == null
                 || item.getDetalle() == null
                 || item.getImagen() == null
                 || item.getTipoPublicacion()== null);
-
-
         for (clasif_modelo item : listaSaved) {
             if (item.getTitulo().equals(titulo) && item.getDetalle().equals(detalle)
                     && item.getImagen().equals(imagen) && item.getTipoPublicacion().equals(tipoPublicacion)) {
@@ -142,7 +133,6 @@ public class clasificado extends AppCompatActivity {
                 return;
             }
         }
-
         clasif_modelo newList = new clasif_modelo(titulo, detalle, imagen, tipoPublicacion);
         listaSaved.add(newList);
 
@@ -154,7 +144,7 @@ public class clasificado extends AppCompatActivity {
         Toast.makeText(this, "La publicación fue guardada", Toast.LENGTH_SHORT).show();
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance(); 
         String userId = auth.getCurrentUser().getUid();
         db.collection("clasificados")
                 .whereEqualTo("titulo", titulo)

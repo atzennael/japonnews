@@ -142,10 +142,10 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                         goToHome()
                     } else {
-                        // El usuario NO está registrado, lo redirigimos a signup.java
+                        // El usuario no está registrado
                         Toast.makeText(this, "Usuario no registrado. Completa tu perfil", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, signup::class.java)
-                        intent.putExtra("email", email) // Enviar email a signup
+                        intent.putExtra("email", email)
                         startActivity(intent)
                         finish()
                     }

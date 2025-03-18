@@ -37,22 +37,8 @@ public class mispostulaciones extends AppCompatActivity {
         cargarMisPostulaciones();
     }
 
-    private void eliminarPostulacion(String idPostulacion) {
-        db.collection("postulaciones")
-                .document(idPostulacion)
-                .delete()
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Postulación cancelada", Toast.LENGTH_SHORT).show();
-                    cargarMisPostulaciones(); // Recargar la lista
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al cancelar postulación", Toast.LENGTH_SHORT).show();
-                    Log.e("Firestore", "Error al eliminar postulación", e);
-                });
-    }
     private void cargarMisPostulaciones() {
         String userId = auth.getCurrentUser().getUid();
-
         db.collection("postulaciones")
                 .whereEqualTo("id_usuario", userId)
                 .orderBy("fecha_postulacion")
@@ -61,10 +47,8 @@ public class mispostulaciones extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         listaPostulaciones.clear();
                         HashSet<String> idsUnicos = new HashSet<>();
-
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String idPublicacion = document.getString("id_publicacion");
-
                             if (idPublicacion != null && !idPublicacion.isEmpty()) {
                                 if (idsUnicos.add(idPublicacion)) {
                                     Log.d("Firestore", "Cargando postulación: " + idPublicacion);
@@ -74,7 +58,6 @@ public class mispostulaciones extends AppCompatActivity {
                                 }
                             } else {
                                 Log.e("Firestore", "Error: id_publicacion es nulo o vacío en documento " + document.getId());
-                                // Eliminar postulaciones inválidas
                                 db.collection("postulaciones").document(document.getId()).delete();
                             }
                         }

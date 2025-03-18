@@ -8,7 +8,7 @@
     android:background="@color/white"
     tools:context=".new_job">
 
-    <!-- Encabezado -->
+    <!-- Encabezado fijo -->
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -30,139 +30,108 @@
         app:layout_constraintBottom_toBottomOf="@id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/view" />
 
-    <!-- Campo de descripción -->
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/black"
-        android:text="Coloca aquí el título de tu publicación"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+    <!-- ScrollView para el contenido -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view" />
-
-    <EditText
-        android:id="@+id/editTextTitulo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:inputType="text"
-        android:padding="8dp"
-        android:textColor="@color/dark_gray"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView8" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
-        android:text="Escribe aquí el detalle de tu publicación"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextTitulo" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextDetalle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:inputType="textMultiLine"
-        android:padding="8dp"
-        android:textColor="@color/dark_gray"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView9" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Coloca aquí el título de tu publicación"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="36dp"
-        android:text="Selecciona el tipo de oportunidad"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextDetalle" />
+            <EditText
+                android:id="@+id/editTextTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:padding="8dp"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView18"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:text="Escribe aquí el detalle de tu publicación"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:text="Agrega una imagen para llamar más postulantes"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner" />
+            <EditText
+                android:id="@+id/editTextDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:padding="8dp"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="87dp"
-        android:layout_height="87dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView10"
-        app:srcCompat="@drawable/clasif_ic" />
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:paddingTop="60dp"
+                android:layout_height="wrap_content"
+                android:text="Selecciona el tipo de oportunidad"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
 
-    <Button
-        android:id="@+id/buttonCargar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/yellow_app"
-        android:text="Cargar Imagen"
-        android:textColor="@color/purple_app"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView6" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/buttonCrear"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/purple_app"
-        android:text="Crear Publicación"
-        android:textColor="@color/yellow_app"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonCargar"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"/>
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:paddingTop="60dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="Agrega una imagen para llamar más postulantes"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="87dp"
+                android:layout_gravity="center"
+                android:layout_height="87dp"
+                app:srcCompat="@drawable/clasif_ic" />
+
+            <Button
+                android:id="@+id/buttonCargar"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow_app"
+                android:text="Cargar Imagen"
+                android:textColor="@color/purple_app" />
+
+            <Button
+                android:id="@+id/buttonCrear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/purple_app"
+                android:text="Crear Publicación"
+                android:textColor="@color/yellow_app" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

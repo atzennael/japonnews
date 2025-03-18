@@ -88,7 +88,7 @@ public class FourthFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
             builder.setTitle("Confirmar eliminación");
             builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta?");
-            Log.d("BorrarCuenta", "Se presionó BorrarCuenta");
+            Log.d("BorrarCuenta", "Se presionó DeleteAcc");
 
             builder.setPositiveButton("Sí", (dialog, which) -> {
                 deleteAcc(userId);

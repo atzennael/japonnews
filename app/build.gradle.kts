@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
-apply(plugin = "com.google.gms.google-services")
+apply(plugin = "com.google.gms.google-services") //Este plugin es añadido
 
 android {
     packagingOptions {
@@ -91,9 +91,6 @@ dependencies {
     annotationProcessor(libs.compiler)
     implementation(libs.firebase.messaging)
     implementation(libs.google.auth.library.oauth2.http)
-    implementation("com.amazonaws:aws-android-sdk-core:2.79.0")
-    implementation("com.amazonaws:aws-android-sdk-sns:2.79.0")
-    implementation ("com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.79.0")
     implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
     implementation("com.google.api-client:google-api-client:1.32.1")
 }

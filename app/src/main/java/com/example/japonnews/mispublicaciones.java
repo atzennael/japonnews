@@ -43,7 +43,6 @@ public class mispublicaciones extends AppCompatActivity {
     private void cargarMisPublicaciones() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) return;
-
         db.collection("clasificados")
                 .whereEqualTo("userId", user.getUid())
                 .orderBy("fecha")
@@ -61,8 +60,6 @@ public class mispublicaciones extends AppCompatActivity {
                         }
                     }
                     adapter.notifyDataSetChanged();
-
-
                     try {
                         recyclerView.setAdapter(new mispublis_adapter(getApplicationContext(), lista));
                     } catch (Exception e) {

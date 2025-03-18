@@ -25,7 +25,6 @@ public class post_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_info);
 
-        // Inicializar vistas
         textViewNombrePostulante = findViewById(R.id.textViewNombrePostulante);
         textViewCorreoPostulante = findViewById(R.id.textViewCorreoPostulante);
         textViewTelefonoPostulante = findViewById(R.id.textViewTelefonoPostulante);
@@ -35,7 +34,6 @@ public class post_info extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        // Obtener datos desde el Intent
         String idPostulante = getIntent().getStringExtra("id_postulante");
         String mensaje = getIntent().getStringExtra("mensaje");
 
@@ -55,7 +53,6 @@ public class post_info extends AppCompatActivity {
             finish();
         }
 
-        // Configurar botón para abrir WhatsApp
         buttonContacto.setOnClickListener(v -> {
             String telefono = textViewTelefonoPostulante.getText().toString().trim();
             if (!telefono.isEmpty()) {
@@ -75,20 +72,17 @@ public class post_info extends AppCompatActivity {
                         String idPostulante = documentSnapshot.getString("id_usuario");
                         String mensaje = documentSnapshot.getString("mensaje");
 
-                        // Validar y mostrar mensaje del postulante
                         if (mensaje != null && !mensaje.isEmpty() && textViewMensajePostulante != null) {
                             textViewMensajePostulante.setText(mensaje);
                         } else {
                             textViewMensajePostulante.setText("Sin mensaje.");
                         }
-
-                        // Si hay un ID de postulante, cargar sus datos
                         if (idPostulante != null && !idPostulante.isEmpty()) {
                             cargarDatosUsuario(idPostulante);
                         }
                     } else {
                         Toast.makeText(this, "No se encontró la postulación.", Toast.LENGTH_SHORT).show();
-                        finish(); // Cerrar la actividad si no se encuentra la notificación
+                        finish();
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -102,13 +96,11 @@ public class post_info extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(userSnapshot -> {
                     if (userSnapshot.exists()) {
-                        // Obtener datos del postulante
                         String nombre = userSnapshot.getString("nombre");
                         String email = userSnapshot.getString("email");
                         String telefono = userSnapshot.getString("telefono");
                         String imagenPerfil = userSnapshot.getString("fotoPerfil");
 
-                        // Mostrar datos si las vistas están inicializadas
                         if (nombre != null && textViewNombrePostulante != null) {
                             textViewNombrePostulante.setText(nombre);
                         }
@@ -118,8 +110,6 @@ public class post_info extends AppCompatActivity {
                         if (telefono != null && textViewTelefonoPostulante != null) {
                             textViewTelefonoPostulante.setText(telefono);
                         }
-
-                        // Cargar imagen de perfil con Glide (si existe)
                         if (imagenPerfil != null && !imagenPerfil.isEmpty() && imageViewPerfil != null) {
                             Glide.with(this)
                                     .load(imagenPerfil)

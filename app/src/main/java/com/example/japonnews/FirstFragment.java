@@ -52,9 +52,11 @@ public class FirstFragment extends Fragment {
 
         viewPager = view.findViewById(R.id.viewPager);
         List<String> images = Arrays.asList(
-                "https://i.pinimg.com/236x/f4/db/8a/f4db8a52c1b887bad46a301afa6b7167.jpg",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVtzurk5_92_SS30O6Zgq89G06jLY2aC5B2w&s",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQraQ0F9c2NVwpSwoLcrCKvStaX5N_yd8EGXQ&s"
+                "https://firebasestorage.googleapis.com/v0/b/japonnews-ad65b.firebasestorage.app/o/Carrusel%2FImagen%20de%20WhatsApp%202025-03-14%20a%20las%2021.55.21_56ace371.jpg?alt=media&token=aff5fcd1-464b-42d6-b439-8d89f98ecf26",
+                "https://firebasestorage.googleapis.com/v0/b/japonnews-ad65b.firebasestorage.app/o/Carrusel%2FImagen%20de%20WhatsApp%202025-03-14%20a%20las%2021.55.21_5a0099c0.jpg?alt=media&token=82826538-ade9-42f9-8085-7233acc3d8c1",
+                "https://firebasestorage.googleapis.com/v0/b/japonnews-ad65b.firebasestorage.app/o/Carrusel%2FImagen%20de%20WhatsApp%202025-03-14%20a%20las%2021.55.22_3530daad.jpg?alt=media&token=b0dd0510-961a-4c9f-a031-64943e848e3a",
+                "https://firebasestorage.googleapis.com/v0/b/japonnews-ad65b.firebasestorage.app/o/Carrusel%2FImagen%20de%20WhatsApp%202025-03-14%20a%20las%2021.55.22_c84fafea.jpg?alt=media&token=39cc8718-6d68-4fe8-a631-def5eef00059",
+                "https://firebasestorage.googleapis.com/v0/b/japonnews-ad65b.firebasestorage.app/o/Carrusel%2FImagen%20de%20WhatsApp%202025-03-14%20a%20las%2021.55.22_d3aec3c2.jpg?alt=media&token=e9e2060b-6dc7-457c-824d-c24a42f2a2f6"
         );
         ImageAdapter adapter = new ImageAdapter(requireContext(), images);
         viewPager.setAdapter(adapter);
@@ -102,12 +104,9 @@ public class FirstFragment extends Fragment {
                         Log.w("FirstFragment", "Error obteniendo el token FCM", task.getException());
                         return;
                     }
-
-                    // Obtén el token
                     String token = task.getResult();
                     Log.d("FirstFragment", "Token FCM: " + token);
 
-                    // Guarda el token en Firestore
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     if (auth.getCurrentUser() != null) {
                         String userId = auth.getCurrentUser().getUid();
@@ -123,7 +122,7 @@ public class FirstFragment extends Fragment {
     private void cargarClasificados() {
         db.collection("clasificados")
                 .orderBy("fecha", Query.Direction.DESCENDING)
-                .limit(5)
+                .limit(15)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()&&task.getResult()!=null) {
@@ -141,7 +140,6 @@ public class FirstFragment extends Fragment {
                             );
                             Log.d("Firebase", "Clasificado recibido: " + clasificado.getTitulo()
                                     + " - " + clasificado.getTipoPublicacion());
-                            // Filtramos los clasificados por tipoPublicacion
                             switch (clasificado.getTipoPublicacion()) {
                                 case "Oferta Laboral":
                                     ofertaLaboralList.add(clasificado);
@@ -161,7 +159,6 @@ public class FirstFragment extends Fragment {
                             }
                         }
 
-                        // Actualizamos los adaptadores con los clasificados filtrados
                         ofertaLaboralAdapter.updateList(ofertaLaboralList);
                         pasantiaAdapter.updateList(pasantiaList);
                         proyectoAdapter.updateList(proyectoList);

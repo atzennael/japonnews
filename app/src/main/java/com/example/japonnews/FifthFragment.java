@@ -44,26 +44,19 @@ public class FifthFragment extends Fragment implements notificacion_adapter.OnIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fifth, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerViewNotificaciones);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         listaNotificaciones = new ArrayList<>();
         adapter = new notificacion_adapter(requireContext(), listaNotificaciones, this);
         recyclerView.setAdapter(adapter);
-
         cargarNotificaciones();
-
         return view;
     }
 
     @Override
     public void onItemClick(notificacion_modelo notificacion) {
-        Log.d("Notificacion", "Se seleccionó la notificación: " + notificacion.getTitulo());
-        Log.d("Notificacion", "ID Usuario: " + notificacion.getId_usuario());
-        Log.d("Notificacion", "Mensaje: " + notificacion.getMensaje());
 
-        // Abrir la actividad post_info con los datos de la notificación
         Intent intent = new Intent(getActivity(), post_info.class);
         intent.putExtra("id_postulante", notificacion.getId_usuario());
         intent.putExtra("mensaje", notificacion.getMensaje());
@@ -77,12 +70,11 @@ public class FifthFragment extends Fragment implements notificacion_adapter.OnIt
                 .addOnSuccessListener(clasificados -> {
                     List<String> ClasifIds = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : clasificados) {
-                        ClasifIds.add(doc.getId()); // Guarda los IDs de las publicaciones del usuario
+                        ClasifIds.add(doc.getId());
                     }
 
-                    if (ClasifIds.isEmpty()) return; // Si el usuario no tiene publicaciones, no hay notificaciones
+                    if (ClasifIds.isEmpty()) return;
 
-                    // Ahora buscar postulaciones que correspondan a esas publicaciones
                     db.collection("postulaciones")
                             .whereIn("id_publicacion", ClasifIds)
                             //.orderBy("fecha_postulacion", Query.Direction.DESCENDING)// Buscar postulaciones recibidas en esas publicaciones

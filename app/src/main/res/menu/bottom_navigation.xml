@@ -10,7 +10,7 @@
     <item
         android:id="@+id/nav_clasif"
         android:icon="@drawable/clasif_ic"
-        android:title="Clasificados">
+        android:title="Ofertas">
     </item>
     <item
         android:id="@+id/nav_saved"

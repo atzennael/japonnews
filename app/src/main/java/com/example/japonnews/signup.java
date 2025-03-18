@@ -105,8 +105,6 @@ public class signup extends AppCompatActivity {
                         FirebaseUser user = auth.getCurrentUser();
                         if (user != null) {
                             String userId = user.getUid();
-                            Log.d("SignupActivity", "Usuario creado con UID: " + userId);
-
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("fcmToken", null);
                             userData.put("uid", userId);

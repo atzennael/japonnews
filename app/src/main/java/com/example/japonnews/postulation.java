@@ -42,7 +42,6 @@ public class postulation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postulacion);
 
-        // Inicializar vistas
         textViewTitulo = findViewById(R.id.textViewTitulo);
         textViewDetalle = findViewById(R.id.textViewDetalle);
         textViewNombre = findViewById(R.id.textViewNombre);
@@ -52,12 +51,10 @@ public class postulation extends AppCompatActivity {
         btnConfirmar = findViewById(R.id.buttonConfirmar);
         mensaje = findViewById(R.id.mensaje);
 
-        // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        // Obtener datos de la oferta
         Intent intent = getIntent();
         if (intent != null) {
             titulo = intent.getStringExtra("titulo");
@@ -74,8 +71,6 @@ public class postulation extends AppCompatActivity {
                     .error(R.drawable.error)
                     .into(imageViewOferta);
         }
-
-        // Obtener datos del usuario actual
         db.collection("usuarios").document(userId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 textViewNombre.setText(documentSnapshot.getString("nombre"));
@@ -84,7 +79,6 @@ public class postulation extends AppCompatActivity {
             }
         });
 
-        // Configurar el botón de confirmar
         btnConfirmar.setOnClickListener(v -> {
             String mensajeTexto = mensaje.getText().toString().trim();
             if (mensajeTexto.isEmpty()) {
@@ -103,13 +97,11 @@ public class postulation extends AppCompatActivity {
                         Log.e(TAG, "No se encontró la publicación.");
                         return;
                     }
-
                     creadorId = documentSnapshot.getString("userId");
                     if (creadorId == null || creadorId.isEmpty()) {
                         Log.e(TAG, "Error: creadorId es nulo o vacío.");
                         return;
                     }
-
                     db.collection("postulaciones")
                             .whereEqualTo("id_usuario", userId)
                             .whereEqualTo("id_publicacion", clasifId)
@@ -170,7 +162,6 @@ public class postulation extends AppCompatActivity {
                 AccessToken token = credentials.getAccessToken();
                 String accessToken = token.getTokenValue();
 
-                // Usa el ACCESS_TOKEN en el hilo principal
                 runOnUiThread(() -> {
                     enviarNotificacionFCM(tokenFCM, titulo, mensaje, accessToken);
                 });

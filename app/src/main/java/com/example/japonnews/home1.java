@@ -32,10 +32,8 @@ public class home1 extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FirstFragment())
                     .commit();
         }
-
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         obtenerYGuardarTokenFCM();
     }
 
